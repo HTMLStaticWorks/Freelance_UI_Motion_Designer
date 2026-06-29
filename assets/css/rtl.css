@@ -25,9 +25,9 @@
 [dir="rtl"] .step-flow::before { left: auto; right: 10%; }
 
 [dir="rtl"] .footer-grid { direction: rtl; }
-[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
 
-[dir="rtl"] .logo { flex-direction: row-reverse; }
+
+[dir="rtl"] .logo { flex-direction: row-reverse; justify-content: flex-end; }
 [dir="rtl"] .btn { flex-direction: row-reverse; }
 
 [dir="rtl"] .cards-row,
