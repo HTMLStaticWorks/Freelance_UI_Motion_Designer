@@ -226,6 +226,12 @@ p  { font-weight: 400; font-size: 1.0625rem; color: var(--muted); line-height: 1
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
+  text-decoration: none;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.logo:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
 }
 .logo-icon { width: 32px; height: 32px; margin-right: 0.5rem; flex-shrink: 0; }
 

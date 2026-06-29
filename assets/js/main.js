@@ -13,7 +13,15 @@
     const theme = localStorage.getItem('md-theme');
     if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
     const dir = localStorage.getItem('md-dir');
-    if (dir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+    if (dir === 'rtl') {
+      const off = document.querySelector('.offcanvas');
+      if (off) off.style.transition = 'none';
+      document.documentElement.setAttribute('dir', 'rtl');
+      if (off) {
+        void off.offsetHeight; // force reflow
+        off.style.transition = '';
+      }
+    }
   })();
 
   /* ═══════════════════════════════════════════════════════════
@@ -54,6 +62,9 @@
     });
   }
   function toggleRTL() {
+    const off = document.querySelector('.offcanvas');
+    if (off) off.style.transition = 'none';
+    
     if (isRTL()) {
       document.documentElement.setAttribute('dir', 'ltr');
       localStorage.setItem('md-dir', 'ltr');
@@ -62,6 +73,11 @@
       localStorage.setItem('md-dir', 'rtl');
     }
     applyRTLLabel();
+    
+    if (off) {
+      void off.offsetHeight; // force reflow
+      off.style.transition = '';
+    }
   }
   document.querySelectorAll('.rtl-toggle-btn').forEach(btn => {
     btn.addEventListener('click', toggleRTL);

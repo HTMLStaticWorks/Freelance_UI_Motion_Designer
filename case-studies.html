@@ -389,7 +389,7 @@
           <div class="outcome-box-green" style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid var(--accent);margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
             <strong style="font-size:1.125rem;color:var(--accent);">Outcome: +42% retention</strong>
           </div>
-          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+          <a href="#" class="btn btn-outline">Watch Prototype</a>
         </div>
       </div>
 
@@ -409,7 +409,7 @@
           <div class="outcome-box" style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid var(--highlight);margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
             <strong style="font-size:1.125rem;color:var(--highlight);">Outcome: +15% conversion</strong>
           </div>
-          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+          <a href="#" class="btn btn-outline">Watch Prototype</a>
         </div>
         <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1);">
           <img src="assets/images/img4.png" alt="Finance App" style="width:100%;height:auto;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
@@ -435,7 +435,7 @@
           <div style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid #10B981;margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
             <strong style="font-size:1.125rem;color:#10B981;">Outcome: 98% satisfaction</strong>
           </div>
-          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+          <a href="#" class="btn btn-outline">Watch Prototype</a>
         </div>
       </div>
 
@@ -455,7 +455,7 @@
           <div class="outcome-box-green" style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid var(--accent);margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
             <strong style="font-size:1.125rem;color:var(--accent);">Outcome: 3× task speed</strong>
           </div>
-          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+          <a href="#" class="btn btn-outline">Watch Prototype</a>
         </div>
         <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1);">
           <img src="assets/images/img3_ecommerce_case.png" alt="E-Commerce Checkout" style="width:100%;height:auto;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
@@ -483,7 +483,7 @@
       </div>
       <div style="display:flex;justify-content:space-between;max-width:900px;margin:1rem auto 0;padding:0 1rem;">
         <span class="pill" style="background:rgba(0,0,0,0.06);color:var(--muted);">← Static UI</span>
-        <span class="pill pill-accent">Motion Enhanced UI →</span>
+        <span class="pill pill-accent">Motion Enhanced UI</span>
       </div>
     </div>
   </div>
@@ -611,6 +611,13 @@
       <span class="label" style="color:var(--highlight);">Process</span>
       <h2 style="margin-top:0.5rem;">Motion Design Workflow</h2>
     </div>
+    <style>
+      @media (max-width: 767px) {
+        .wf-cinema { flex-direction: column !important; gap: 3rem !important; }
+        .wf-cinema::before { display: none !important; }
+        .wf-step-strip { grid-template-columns: 1fr !important; gap: 1rem !important; }
+      }
+    </style>
     <div class="wf-cinema reveal">
       <div class="wf-step-c">
         <div class="wf-circle" style="background:var(--accent);">01</div>
@@ -639,7 +646,7 @@
       </div>
     </div>
     <!-- Detailed step strip -->
-    <div class="reveal" style="margin-top:4rem;display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;text-align:center;">
+    <div class="reveal wf-step-strip" style="margin-top:4rem;display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;text-align:center;">
       <div class="wf-step-box">
         <p style="font-size:0.8125rem;color:var(--muted);">Week 1</p>
       </div>
@@ -684,7 +691,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="logo" style="color:var(--brand);margin-bottom:1rem;"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix</div>
+        <a href="index.html" class="logo" style="color:var(--brand);margin-bottom:1rem;"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix</a>
         <p style="max-width:280px;font-size:0.9375rem;">I craft cinematic interface motion for SaaS products — micro-interactions, app transitions, and full motion systems.</p>
         <div class="social-icons" >
           <a href="#" class="social-icon" aria-label="Twitter" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.05c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
