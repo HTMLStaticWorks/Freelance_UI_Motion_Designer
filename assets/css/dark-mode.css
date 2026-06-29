@@ -1,0 +1,288 @@
+/* ============================================================
+   dark-mode.css — Full dark theme using [data-theme="dark"]
+   on <html> element. Covers every component on all pages.
+   ============================================================ */
+
+/* ── Root variable overrides ─────────────────────────────── */
+[data-theme="dark"] {
+  --primary:    #E2E8F0;
+  --bg-light:   #0F1117;
+  --bg-dark:    #070A10;
+  --muted:      rgba(255, 255, 255, 0.85);
+  --white:      #1A1F2E;
+  --brand:      #FF2E93;
+}
+
+/* ── Body & base ─────────────────────────────────────────── */
+[data-theme="dark"] body {
+  background: #0F1117;
+  color: #E2E8F0;
+}
+
+/* ── Headings ────────────────────────────────────────────── */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: #E2E8F0;
+}
+
+/* ── Hero h1 always bright white (hero bg is always dark) ── */
+[data-theme="dark"] .hero-h1 {
+  color: #ffffff !important;
+}
+
+/* ── Paragraphs ──────────────────────────────────────────── */
+[data-theme="dark"] p {
+  color: var(--muted);
+}
+
+/* ── Floating Navbar ─────────────────────────────────────── */
+[data-theme="dark"] .navbar {
+  background: rgba(15, 17, 23, 0.88);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+[data-theme="dark"] .logo { color: var(--brand); }
+[data-theme="dark"] .nav-links a { color: var(--muted); }
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active {
+  color: #E2E8F0;
+  background: rgba(255, 255, 255, 0.06);
+}
+[data-theme="dark"] .hamburger { background: none; }
+[data-theme="dark"] .hamburger:hover { background: rgba(255, 255, 255, 0.06); }
+[data-theme="dark"] .hamburger-icon span { background: #E2E8F0; }
+
+[data-theme="dark"] .nav-icon-btn {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+[data-theme="dark"] .nav-icon-btn:hover {
+  background: var(--brand) !important;
+  color: #ffffff !important;
+  border-color: var(--brand) !important;
+}
+
+/* ── Offcanvas ───────────────────────────────────────────── */
+[data-theme="dark"] .offcanvas {
+  background: #12151E;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.4);
+}
+[data-theme="dark"] .offcanvas-links a { color: #E2E8F0; }
+[data-theme="dark"] .offcanvas-links a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #FF2E93;
+}
+[data-theme="dark"] .offcanvas-footer { border-top-color: rgba(255, 255, 255, 0.07); }
+
+/* ── Cards (light bg cards) ──────────────────────────────── */
+[data-theme="dark"] .card {
+  background: #1A1F2E;
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #E2E8F0;
+}
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+}
+[data-theme="dark"] .card h3,
+[data-theme="dark"] .card h4 { color: #E2E8F0; }
+[data-theme="dark"] .card p { color: var(--muted); }
+
+/* ── Sections with white background ─────────────────────── */
+[data-theme="dark"] section[style*="background:var(--white)"],
+[data-theme="dark"] section[style*="background: var(--white)"] {
+  background: #12151E !important;
+}
+[data-theme="dark"] section[style*="background:var(--bg-light)"],
+[data-theme="dark"] section[style*="background: var(--bg-light)"] {
+  background: #0F1117 !important;
+}
+
+/* ── Sections with white bg (inline) - broad override ────── */
+[data-theme="dark"] .section-white-override {
+  background: #12151E;
+}
+
+/* ── General inline background overrides ─────────────────── */
+[data-theme="dark"] [style*="background:var(--white)"],
+[data-theme="dark"] [style*="background: var(--white)"] {
+  background: #1A1F2E !important;
+  color: #E2E8F0 !important;
+}
+[data-theme="dark"] [style*="background:var(--bg-light)"],
+[data-theme="dark"] [style*="background: var(--bg-light)"] {
+  background: #0F1117 !important;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+[data-theme="dark"] .btn-outline {
+  color: #E2E8F0;
+  border-color: rgba(226, 232, 240, 0.2);
+}
+[data-theme="dark"] .btn-outline:hover {
+  background: #E2E8F0;
+  color: #0F1117;
+}
+[data-theme="dark"] .btn-primary {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+[data-theme="dark"] .btn-primary:hover {
+  background: #E62280;
+  color: #fff;
+  border-color: #E62280;
+  box-shadow: 0 8px 24px rgba(255,46,147,0.35);
+}
+[data-theme="dark"] .btn-outline-white {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+[data-theme="dark"] .btn-outline-white:hover {
+  background: #ffffff;
+  color: #0F1117;
+}
+
+/* ── Dark Mode Toggle button label ───────────────────────── */
+[data-theme="dark"] .dm-toggle-btn {
+  color: #E2E8F0;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Forms ───────────────────────────────────────────────── */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #E2E8F0 !important;
+}
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+  border-color: #FF2E93 !important;
+  background: rgba(255, 46, 147, 0.05) !important;
+}
+[data-theme="dark"] label { color: #E2E8F0 !important; }
+
+/* ── Timeline ────────────────────────────────────────────── */
+[data-theme="dark"] .timeline {
+  border-left-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .timeline-item::before {
+  border-color: #1A1F2E;
+}
+
+/* ── Glass cards ─────────────────────────────────────────── */
+[data-theme="dark"] .glass {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── FAQ details ─────────────────────────────────────────── */
+[data-theme="dark"] details {
+  background: #1A1F2E !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  color: #E2E8F0;
+}
+[data-theme="dark"] details summary { color: #E2E8F0 !important; }
+[data-theme="dark"] details p { color: var(--muted) !important; }
+
+/* ── Pricing cards ───────────────────────────────────────── */
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .project-card-body,
+[data-theme="dark"] .project-card-footer {
+  background: #1A1F2E;
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #E2E8F0;
+}
+[data-theme="dark"] .project-card-footer {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Hero compact ────────────────────────────────────────── */
+[data-theme="dark"] .hero-compact {
+  background: #070A10;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+[data-theme="dark"] footer {
+  background: #070A10;
+}
+[data-theme="dark"] .footer-grid {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+[data-theme="dark"] .footer-links a { color: var(--muted); }
+[data-theme="dark"] .footer-links a:hover { color: #E2E8F0; }
+[data-theme="dark"] footer p { color: var(--muted); }
+
+/* ── CTA banner (keep dark, adjust gradient) ─────────────── */
+[data-theme="dark"] .cta-banner {
+  background: linear-gradient(135deg, #080B12 0%, #1e1154 100%);
+}
+
+/* ── Availability / result blocks ────────────────────────── */
+[data-theme="dark"] .result-block {
+  border-left-color: #FF2E93;
+}
+[data-theme="dark"] .result-block h4 { color: #E2E8F0 !important; }
+
+/* ── Logo strip ──────────────────────────────────────────── */
+[data-theme="dark"] .logo-strip span {
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── Contact info items ──────────────────────────────────── */
+[data-theme="dark"] .contact-info-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Pill badges on light bg ─────────────────────────────── */
+[data-theme="dark"] .pill-highlight { color: #FF2E93; }
+[data-theme="dark"] .pill-green { color: #4ADE80; }
+
+/* ── Step border on pricing ──────────────────────────────── */
+[data-theme="dark"] .step-num {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Inline strong text ──────────────────────────────────── */
+[data-theme="dark"] strong { color: #E2E8F0; }
+
+/* ── Blockquote ──────────────────────────────────────────── */
+[data-theme="dark"] blockquote p { color: #E2E8F0 !important; font-style: italic; }
+
+/* ── Stat row labels ─────────────────────────────────────── */
+[data-theme="dark"] .stat-row h4 { color: #E2E8F0 !important; }
+[data-theme="dark"] .stat-row .caption { color: var(--muted) !important; }
+
+/* ── Wf-line (about workflow) ────────────────────────────── */
+[data-theme="dark"] .wf-line { border-left-color: rgba(255,46,147,0.2); }
+[data-theme="dark"] .wf-dot { border-color: #0F1117; }
+
+/* ── Filter pills ────────────────────────────────────────── */
+[data-theme="dark"] .filter-pill {
+  color: var(--muted);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .filter-pill.active,
+[data-theme="dark"] .filter-pill:hover {
+  background: #E2E8F0;
+  color: #111827;
+  border-color: #E2E8F0;
+}
+
+/* ── Home-2 dark body fix (already dark, ensure override) ── */
+[data-theme="dark"] .hero-compact.home2-hero {
+  background: #040609;
+}
+
+/* ── Inline text color fixes ─────────────────────────────── */
+[data-theme="dark"] [style*="color:var(--primary)"],
+[data-theme="dark"] [style*="color: var(--primary)"] {
+  color: #E2E8F0 !important;
+}

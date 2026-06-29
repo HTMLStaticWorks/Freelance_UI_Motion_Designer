@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Studies – Design Decisions That Increased Product Engagement</title>
+  <meta name="description" content="Deep-dive case studies on UI motion design decisions that measurably increased product engagement, task completion, and user satisfaction.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dark-mode.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+  <style>
+    /* Before / After layout */
+    .ba-wrapper { position:relative;border-radius:20px;overflow:hidden;user-select:none;line-height:0; }
+    .ba-before { width:100%;display:block; }
+    .ba-after-wrap { position:absolute;top:0;left:0;bottom:0;overflow:hidden; }
+    .ba-after-wrap img { min-width: 100vw; max-width:none; display:block; }
+    .ba-handle {
+      position:absolute;top:0;bottom:0;width:4px;background:var(--white);cursor:ew-resize;z-index:10;left:50%;
+    }
+    .ba-handle::after {
+      content:'⇔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:44px;height:44px;background:var(--white);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;font-size:1rem;
+      box-shadow:0 4px 16px rgba(0,0,0,0.25);color:var(--primary);font-weight:bold;
+      line-height:44px;text-align:center;
+    }
+
+    /* Project card equal height */
+    .project-cards { display:flex;flex-wrap:wrap;justify-content:center;gap:2rem; }
+    .project-card {
+      flex:0 0 calc(25% - 1.5rem);min-width:220px;
+      background:var(--white);border-radius:20px;border:1px solid rgba(0,0,0,0.04);
+      box-shadow:0 4px 24px rgba(0,0,0,0.03);
+      display:flex;flex-direction:column;overflow:hidden;
+      transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s;
+    }
+    .project-card:hover { transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,0.09); }
+    .project-card-body { padding:2rem;flex:1;display:flex;flex-direction:column; }
+    .project-card-footer { padding:1.25rem 2rem;border-top:1px solid rgba(0,0,0,0.04); }
+
+    /* Workflow timeline (horizontal cinematic) */
+    .wf-cinema { display:flex;gap:0;align-items:stretch;position:relative;overflow:hidden; }
+    .wf-cinema::before {
+      content:'';position:absolute;top:3.25rem;left:0;right:0;height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--highlight));
+    }
+    .wf-step-c {
+      flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;
+      padding:0 1rem;position:relative;z-index:2;
+    }
+    .wf-circle {
+      width:2.5rem;height:2.5rem;border-radius:50%;border:3px solid var(--bg-light);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Outfit';font-weight:560;font-size:0.875rem;color:var(--white);
+      margin-bottom:1.5rem;
+    }
+
+    /* CTA banner animated BG */
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .cta-animated {
+      background: linear-gradient(135deg, #111827, #1e1154, #2d1a6e, #111827);
+      background-size: 300% 300%;
+      animation: gradShift 8s ease infinite;
+    }
+  
+    /* Featured Grid Responsive */
+    .featured-grid {
+      display: flex;
+      height: 450px;
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 991px) { /* Tablet view (2x2) */
+      .featured-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        height: auto !important;
+      }
+      .featured-grid > div {
+        height: 350px !important;
+        flex: none !important;
+      }
+      .featured-grid > div .overlay-content {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      .featured-grid > div .title-vertical {
+        opacity: 0 !important;
+      }
+    }
+    @media (max-width: 767px) { /* Mobile view (1 by 1) */
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+      .featured-grid > div {
+        height: 380px !important;
+      }
+      .featured-grid h3 {
+        font-size: 2rem !important;
+        white-space: normal !important;
+      }
+      .featured-grid .overlay-content {
+        padding: 1.5rem !important;
+      }
+    }
+
+  
+    @media (max-width: 991px) {
+      .mobile-center-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-header > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-header-simple {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text > p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .mobile-center-text h4, .mobile-center-text p.caption {
+        text-align: left !important;
+      }
+      .mobile-center-text ul {
+        display: inline-flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .mobile-center-text a.btn {
+        align-self: center !important;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+  
+    @media (max-width: 991px) {
+      .mobile-center-text div {
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-text div p, .mobile-center-text div strong {
+        text-align: center !important;
+      }
+      .mobile-center-text .outcome-box {
+        border-left: none !important;
+        border-bottom: 4px solid var(--highlight) !important;
+      }
+      .mobile-center-text .outcome-box-green {
+        border-left: none !important;
+        border-bottom: 4px solid var(--accent) !important;
+      }
+    }
+
+  </style>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+</head>
+<body>
+
+<div class="cursor-glow"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="logo"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home 1</a></li><li><a href="home-2.html">Home 2</a></li>
+    <li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li><li><a href="case-studies.html" class="active">Case Studies</a></li>
+    <li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div style="display:flex;gap:0.5rem;">
+      <button class="nav-icon-btn dm-toggle-btn" aria-label="Toggle Dark Mode">◑</button>
+      <button class="nav-icon-btn rtl-toggle-btn" aria-label="Toggle RTL">⇄</button>
+    </div>
+    <a href="contact.html" class="btn btn-primary">Reach Me</a>
+    <button class="hamburger"><div class="hamburger-icon"><span></span><span></span><span></span></div></button>
+  </div>
+</nav>
+<div class="offcanvas-overlay"></div>
+<div class="offcanvas">
+  <button class="close-menu-btn" aria-label="Close menu">&times;</button>
+  <div class="offcanvas-links">
+    <a href="index.html">Home 1</a><a href="home-2.html">Home 2</a><a href="about.html">About</a>
+    <a href="services.html">Services</a><a href="portfolio.html">Portfolio</a>
+    <a href="case-studies.html">Case Studies</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="offcanvas-footer">
+    <div style="display:flex;gap:1rem;margin-bottom:1rem;justify-content:center;">
+      <button class="nav-icon-btn dm-toggle-btn" aria-label="Toggle Dark Mode">◑</button>
+      <button class="nav-icon-btn rtl-toggle-btn" aria-label="Toggle RTL">⇄</button>
+    </div>
+    <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Reach Me</a>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero-compact">
+  <div class="container reveal mobile-center-header-simple" style="position:relative;z-index:2;">
+    <span class="pill pill-accent" style="display:inline-block;margin-bottom:1.5rem;">Case Studies</span>
+    <h1 style="color:var(--white);max-width:800px;margin:0 auto 1.5rem;">In-Depth Case Studies</h1>
+    <p class="lead" style="color:var(--muted);max-width:540px;margin:0 auto;">Detailed breakdowns of how motion design solves complex UX problems and drives business results.</p>
+  </div>
+</section>
+
+<!-- ===== SECTION 1 — DEEP DIVE PROJECTS (Accordion) ===== -->
+<section class="section" style="background:var(--bg-light);overflow:hidden;position:relative;">
+  <div class="container reveal" style="text-align:center;margin-bottom:4rem;position:relative;z-index:2;">
+    <span class="label">Featured</span>
+    <h2 style="margin-top:0.5rem;">Deep Dive Projects</h2>
+  </div>
+  <div class="container reveal" style="max-width:1200px;position:relative;z-index:2;">
+    <div class="featured-grid" style="width:100%;">
+      <!-- Card 1 -->
+      <div style="flex:1;position:relative;border-radius:24px;overflow:hidden;cursor:pointer;transition:flex 0.6s cubic-bezier(0.16,1,0.3,1);" onmouseover="this.style.flex='4';this.querySelector('.overlay-content').style.opacity='1';this.querySelector('.overlay-content').style.transform='translateY(0)';this.querySelector('.title-vertical').style.opacity='0'" onmouseout="this.style.flex='1';this.querySelector('.overlay-content').style.opacity='0';this.querySelector('.overlay-content').style.transform='translateY(20px)';this.querySelector('.title-vertical').style.opacity='1'">
+        <img src="assets/images/img2_mobile_case.png" alt="Mobile App" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);"></div>
+        <div class="title-vertical" style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:white;font-size:0.875rem;font-weight:600;letter-spacing:2px;text-align:center;transition:opacity 0.4s ease;width:90%;">
+          WALLET APP
+        </div>
+        <div class="overlay-content" style="position:absolute;bottom:0;left:0;right:0;padding:2.5rem;opacity:0;transform:translateY(20px);transition:all 0.6s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column;align-items:flex-start;">
+          <span class="pill pill-accent" style="margin-bottom:1rem;backdrop-filter:blur(8px);">Mobile</span>
+          <h3 style="color:white;font-size:2.5rem;margin-bottom:0.5rem;white-space:nowrap;">Wallet App</h3>
+          <p style="color:rgba(255,255,255,0.8);font-size:1rem;line-height:1.5;max-width:350px;">Gestural spring physics & haptic feedback loops designed for seamless transactions.</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div style="flex:1;position:relative;border-radius:24px;overflow:hidden;cursor:pointer;transition:flex 0.6s cubic-bezier(0.16,1,0.3,1);" onmouseover="this.style.flex='4';this.querySelector('.overlay-content').style.opacity='1';this.querySelector('.overlay-content').style.transform='translateY(0)';this.querySelector('.title-vertical').style.opacity='0'" onmouseout="this.style.flex='1';this.querySelector('.overlay-content').style.opacity='0';this.querySelector('.overlay-content').style.transform='translateY(20px)';this.querySelector('.title-vertical').style.opacity='1'">
+        <img src="assets/images/img1.png" alt="SaaS Dashboard" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);"></div>
+        <div class="title-vertical" style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:white;font-size:0.875rem;font-weight:600;letter-spacing:2px;text-align:center;transition:opacity 0.4s ease;width:90%;">
+          SAAS DASHBOARD
+        </div>
+        <div class="overlay-content" style="position:absolute;bottom:0;left:0;right:0;padding:2.5rem;opacity:0;transform:translateY(20px);transition:all 0.6s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column;align-items:flex-start;">
+          <span class="pill pill-highlight" style="margin-bottom:1rem;backdrop-filter:blur(8px);">Web App</span>
+          <h3 style="color:white;font-size:2.5rem;margin-bottom:0.5rem;white-space:nowrap;">SaaS Dashboard</h3>
+          <p style="color:rgba(255,255,255,0.8);font-size:1rem;line-height:1.5;max-width:350px;">Data visualization entrance choreography and responsive micro-interactions.</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div style="flex:1;position:relative;border-radius:24px;overflow:hidden;cursor:pointer;transition:flex 0.6s cubic-bezier(0.16,1,0.3,1);" onmouseover="this.style.flex='4';this.querySelector('.overlay-content').style.opacity='1';this.querySelector('.overlay-content').style.transform='translateY(0)';this.querySelector('.title-vertical').style.opacity='0'" onmouseout="this.style.flex='1';this.querySelector('.overlay-content').style.opacity='0';this.querySelector('.overlay-content').style.transform='translateY(20px)';this.querySelector('.title-vertical').style.opacity='1'">
+        <img src="assets/images/img3_timeline_case.png" alt="Timeline Editor" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);"></div>
+        <div class="title-vertical" style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:white;font-size:0.875rem;font-weight:600;letter-spacing:2px;text-align:center;transition:opacity 0.4s ease;width:90%;">
+          TIMELINE EDITOR
+        </div>
+        <div class="overlay-content" style="position:absolute;bottom:0;left:0;right:0;padding:2.5rem;opacity:0;transform:translateY(20px);transition:all 0.6s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column;align-items:flex-start;">
+          <span class="pill pill-green" style="margin-bottom:1rem;backdrop-filter:blur(8px);">Complex UI</span>
+          <h3 style="color:white;font-size:2.5rem;margin-bottom:0.5rem;white-space:nowrap;">Timeline Editor</h3>
+          <p style="color:rgba(255,255,255,0.8);font-size:1rem;line-height:1.5;max-width:350px;">Drag & drop interactions, snapping physics, and contextual menus.</p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div style="flex:1;position:relative;border-radius:24px;overflow:hidden;cursor:pointer;transition:flex 0.6s cubic-bezier(0.16,1,0.3,1);" onmouseover="this.style.flex='4';this.querySelector('.overlay-content').style.opacity='1';this.querySelector('.overlay-content').style.transform='translateY(0)';this.querySelector('.title-vertical').style.opacity='0'" onmouseout="this.style.flex='1';this.querySelector('.overlay-content').style.opacity='0';this.querySelector('.overlay-content').style.transform='translateY(20px)';this.querySelector('.title-vertical').style.opacity='1'">
+        <img src="assets/images/img4.png" alt="Analytics" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);"></div>
+        <div class="title-vertical" style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:white;font-size:0.875rem;font-weight:600;letter-spacing:2px;text-align:center;transition:opacity 0.4s ease;width:90%;">
+          ANALYTICS GLASS
+        </div>
+        <div class="overlay-content" style="position:absolute;bottom:0;left:0;right:0;padding:2.5rem;opacity:0;transform:translateY(20px);transition:all 0.6s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column;align-items:flex-start;">
+          <span class="pill" style="background:rgba(255,255,255,0.2);color:white;margin-bottom:1rem;backdrop-filter:blur(8px);">Experimental</span>
+          <h3 style="color:white;font-size:2.5rem;margin-bottom:0.5rem;white-space:nowrap;">Analytics Glass</h3>
+          <p style="color:rgba(255,255,255,0.8);font-size:1rem;line-height:1.5;max-width:350px;">Experimental glassmorphic overlays and depth-based z-axis transitions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2 — SPLIT LAYOUT ===== -->
+<section class="section" style="background:var(--white);padding-top:60px;padding-bottom:100px;overflow:hidden;position:relative;">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at left center, rgba(255,46,147,0.05) 0%, transparent 60%);"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="grid grid-2" style="align-items:center;gap:4rem;">
+      <div class="reveal mobile-center-text">
+        <span class="pill pill-accent" style="margin-bottom:1.5rem;display:inline-block;">Case Studies</span>
+        <h1 style="margin-bottom:1.5rem;font-size:clamp(2.5rem, 5vw, 4rem);line-height:1.1;">Design Decisions That Drive Engagement</h1>
+        <p class="lead" style="margin-bottom:2.5rem;max-width:550px;">In-depth breakdowns of how strategic motion design translates into measurable business outcomes and solves complex UX challenges.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="#projects" class="btn btn-accent">Explore Studies</a>
+          <a href="contact.html" class="btn btn-outline">Start a Project</a>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1" style="position:relative;">
+        <div style="position:absolute;inset:0;background:var(--accent);filter:blur(80px);opacity:0.25;border-radius:50%;"></div>
+        <img src="assets/images/img1.png" alt="Case Study Dashboard" style="width:100%;height:auto;border-radius:24px;box-shadow:0 30px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);position:relative;z-index:2;transform:perspective(1000px) rotateY(-5deg);transition:transform 0.5s ease;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) scale(1.02)'" onmouseout="this.style.transform='perspective(1000px) rotateY(-5deg) scale(1)'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2 — PERFORMANCE METRICS (no cards, counters) ===== -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:5rem;">
+      <span class="label">Results</span>
+      <h2 style="margin-top:0.5rem;">Performance Metrics</h2>
+      <p>Measured outcomes across 6 enterprise engagements.</p>
+    </div>
+    <div class="stat-row reveal">
+      <div>
+        <div class="stat-number" data-target="42" data-suffix="%">—</div>
+        <h4>Retention Increase</h4>
+        <p class="caption" style="margin-top:0.5rem;">Users returning after first session</p>
+      </div>
+      <div>
+        <div class="stat-number" data-prefix="3" data-target="0" data-suffix="x" style="color:var(--highlight);">—</div>
+        <h4>Task Completion</h4>
+        <p class="caption" style="margin-top:0.5rem;">Faster completion with motion guidance</p>
+      </div>
+      <div>
+        <div class="stat-number" data-target="98" data-suffix="%">—</div>
+        <h4>User Satisfaction</h4>
+        <p class="caption" style="margin-top:0.5rem;">Post-launch NPS survey score</p>
+      </div>
+      <div>
+        <div class="stat-number" data-target="15" data-suffix="%" style="color:var(--highlight);">—</div>
+        <h4>Conversion Lift</h4>
+        <p class="caption" style="margin-top:0.5rem;">Checkout and signup flow improvements</p>
+      </div>
+    </div>
+    <!-- Visual bar indicators -->
+    <div class="reveal" style="margin-top:4rem;display:flex;flex-direction:column;gap:1.25rem;max-width:700px;margin-inline:auto;">
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="font-weight:500;">Retention</span><span style="color:var(--accent);">+42%</span></div>
+        <div style="height:6px;background:var(--bg-light);border-radius:3px;overflow:hidden;"><div style="width:84%;height:100%;background:linear-gradient(90deg,var(--accent),#9B7EFF);border-radius:3px;"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="font-weight:500;">Task Completion Speed</span><span style="color:var(--highlight);">3×</span></div>
+        <div style="height:6px;background:var(--bg-light);border-radius:3px;overflow:hidden;"><div style="width:70%;height:100%;background:linear-gradient(90deg,var(--highlight),#FF7A00);border-radius:3px;"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="font-weight:500;">Satisfaction Score</span><span style="color:var(--accent);">98%</span></div>
+        <div style="height:6px;background:var(--bg-light);border-radius:3px;overflow:hidden;"><div style="width:98%;height:100%;background:linear-gradient(90deg,var(--accent),var(--highlight));border-radius:3px;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3 — FEATURED PROJECTS (exactly 4 equal cards) ===== -->
+<section id="projects" class="section" style="background:var(--bg-light);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="label">Projects</span>
+      <h2 style="margin-top:0.5rem;">Featured Projects</h2>
+      <p>Four deep-dive motion design case studies.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6rem;margin-top:3rem;">
+      <!-- Project 1 -->
+      <div class="grid grid-2 reveal" style="align-items:center;gap:4rem;">
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1);">
+          <img src="assets/images/img1.png" alt="SaaS Dashboard" style="width:100%;height:auto;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div class="mobile-center-text">
+          <span class="pill pill-accent" style="margin-bottom:1.5rem;display:inline-block;">SaaS</span>
+          <h3 style="margin-bottom:1rem;font-size:2rem;">SaaS Dashboard</h3>
+          <div style="margin-bottom:1.5rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Challenge:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Static data grids causing 70% drop-off on key analytics screens.</p>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Solution:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Scroll-linked counter animations and layout morphing between chart views.</p>
+          </div>
+          <div class="outcome-box-green" style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid var(--accent);margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <strong style="font-size:1.125rem;color:var(--accent);">Outcome: +42% retention</strong>
+          </div>
+          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="grid grid-2 reveal" style="align-items:center;gap:4rem;">
+        <div class="mobile-center-text">
+          <span class="pill pill-highlight" style="margin-bottom:1.5rem;display:inline-block;">Finance</span>
+          <h3 style="margin-bottom:1rem;font-size:2rem;">Finance App</h3>
+          <div style="margin-bottom:1.5rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Challenge:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Checkout abandonment at 65% due to disjointed multi-step forms.</p>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Solution:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Shared-element transitions guiding users through 5-step onboarding without page reloads.</p>
+          </div>
+          <div class="outcome-box" style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid var(--highlight);margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <strong style="font-size:1.125rem;color:var(--highlight);">Outcome: +15% conversion</strong>
+          </div>
+          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+        </div>
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1);">
+          <img src="assets/images/img4.png" alt="Finance App" style="width:100%;height:auto;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="grid grid-2 reveal" style="align-items:center;gap:4rem;">
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1);">
+          <img src="assets/images/img2_healthcare_case.png" alt="Healthcare Product" style="width:100%;height:auto;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div class="mobile-center-text">
+          <span class="pill pill-green" style="margin-bottom:1.5rem;display:inline-block;">Healthcare</span>
+          <h3 style="margin-bottom:1rem;font-size:2rem;">Healthcare Product</h3>
+          <div style="margin-bottom:1.5rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Challenge:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Patient record navigation causing clinician cognitive overload.</p>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Solution:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Depth-based navigation with z-axis card stacking and liquid panel transitions.</p>
+          </div>
+          <div style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid #10B981;margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <strong style="font-size:1.125rem;color:#10B981;">Outcome: 98% satisfaction</strong>
+          </div>
+          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="grid grid-2 reveal" style="align-items:center;gap:4rem;">
+        <div class="mobile-center-text">
+          <span class="pill" style="background:rgba(255,46,147,0.1);color:var(--accent);margin-bottom:1.5rem;display:inline-block;">E-Commerce</span>
+          <h3 style="margin-bottom:1rem;font-size:2rem;">E-Commerce Checkout</h3>
+          <div style="margin-bottom:1.5rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Challenge:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Cart anxiety causing 58% abandonment at payment confirmation step.</p>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <strong style="color:var(--text-main);font-size:1.125rem;">Solution:</strong>
+            <p style="margin-top:0.5rem;color:var(--muted);">Gestural cart drawer with haptic-style spring physics and success microanimation.</p>
+          </div>
+          <div class="outcome-box-green" style="padding:1.5rem;background:var(--white);border-radius:16px;border-left:4px solid var(--accent);margin-bottom:2rem;box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+            <strong style="font-size:1.125rem;color:var(--accent);">Outcome: 3× task speed</strong>
+          </div>
+          <a href="#" class="btn btn-outline">Watch Prototype →</a>
+        </div>
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1);">
+          <img src="assets/images/img3_ecommerce_case.png" alt="E-Commerce Checkout" style="width:100%;height:auto;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4 — BEFORE VS AFTER (interactive slider) ===== -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="label">Transformation</span>
+      <h2 style="margin-top:0.5rem;">Before vs After</h2>
+      <p>Drag the handle to compare a static UI against the motion-enhanced version.</p>
+    </div>
+    <div class="reveal">
+      <div class="ba-wrapper" style="max-width:900px;margin:0 auto;">
+        <img class="ba-before" src="assets/images/img3_before_static.png" alt="Before — static UI">
+        <div class="ba-after-wrap" style="width:50%;">
+          <img src="assets/images/img1.png" alt="After — motion UI">
+        </div>
+        <div class="ba-handle" style="left:50%;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;max-width:900px;margin:1rem auto 0;padding:0 1rem;">
+        <span class="pill" style="background:rgba(0,0,0,0.06);color:var(--muted);">← Static UI</span>
+        <span class="pill pill-accent">Motion Enhanced UI →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5 — WORKFLOW TIMELINE (cinematic horizontal, no cards) ===== -->
+<section class="section" style="background:var(--bg-light);">
+  <style>
+    [data-theme="light"] .wf-step-c h4 { color: var(--text-main) !important; }
+    .wf-step-box { background:var(--white); border-radius:12px; padding:1.5rem; border:1px solid rgba(0,0,0,0.05); }
+    [data-theme="dark"] .wf-step-box { background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.06); }
+  
+    /* Featured Grid Responsive */
+    .featured-grid {
+      display: flex;
+      height: 450px;
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 991px) { /* Tablet view (2x2) */
+      .featured-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        height: auto !important;
+      }
+      .featured-grid > div {
+        height: 350px !important;
+        flex: none !important;
+      }
+      .featured-grid > div .overlay-content {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      .featured-grid > div .title-vertical {
+        opacity: 0 !important;
+      }
+    }
+    @media (max-width: 767px) { /* Mobile view (1 by 1) */
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+      .featured-grid > div {
+        height: 380px !important;
+      }
+      .featured-grid h3 {
+        font-size: 2rem !important;
+        white-space: normal !important;
+      }
+      .featured-grid .overlay-content {
+        padding: 1.5rem !important;
+      }
+    }
+
+  
+    @media (max-width: 991px) {
+      .mobile-center-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-header > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-header-simple {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text > p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .mobile-center-text h4, .mobile-center-text p.caption {
+        text-align: left !important;
+      }
+      .mobile-center-text ul {
+        display: inline-flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .mobile-center-text a.btn {
+        align-self: center !important;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+  
+    @media (max-width: 991px) {
+      .mobile-center-text div {
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-text div p, .mobile-center-text div strong {
+        text-align: center !important;
+      }
+      .mobile-center-text .outcome-box {
+        border-left: none !important;
+        border-bottom: 4px solid var(--highlight) !important;
+      }
+      .mobile-center-text .outcome-box-green {
+        border-left: none !important;
+        border-bottom: 4px solid var(--accent) !important;
+      }
+    }
+
+  </style>
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:5rem;">
+      <span class="label" style="color:var(--highlight);">Process</span>
+      <h2 style="margin-top:0.5rem;">Motion Design Workflow</h2>
+    </div>
+    <div class="wf-cinema reveal">
+      <div class="wf-step-c">
+        <div class="wf-circle" style="background:var(--accent);">01</div>
+        <h4 style="margin-bottom:0.5rem;">Research</h4>
+        <p style="font-size:0.8125rem;">Heuristic audit, competitor analysis, physics benchmarking.</p>
+      </div>
+      <div class="wf-step-c">
+        <div class="wf-circle" style="background:#2d1a6e;">02</div>
+        <h4 style="margin-bottom:0.5rem;">Wireframes</h4>
+        <p style="font-size:0.8125rem;">Annotated timing sketches before any software.</p>
+      </div>
+      <div class="wf-step-c">
+        <div class="wf-circle" style="background:#2d1a6e;">03</div>
+        <h4 style="margin-bottom:0.5rem;">Animation</h4>
+        <p style="font-size:0.8125rem;">High-fidelity motion in Figma, Protopie, or AE.</p>
+      </div>
+      <div class="wf-step-c">
+        <div class="wf-circle" style="background:#2d1a6e;">04</div>
+        <h4 style="margin-bottom:0.5rem;">Prototype</h4>
+        <p style="font-size:0.8125rem;">Stakeholder-ready interactive demo with real physics.</p>
+      </div>
+      <div class="wf-step-c">
+        <div class="wf-circle" style="background:var(--highlight);">05</div>
+        <h4 style="margin-bottom:0.5rem;">Handoff</h4>
+        <p style="font-size:0.8125rem;">Framer Motion code, Lottie JSON, or ProtoPie Cloud.</p>
+      </div>
+    </div>
+    <!-- Detailed step strip -->
+    <div class="reveal" style="margin-top:4rem;display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;text-align:center;">
+      <div class="wf-step-box">
+        <p style="font-size:0.8125rem;color:var(--muted);">Week 1</p>
+      </div>
+      <div class="wf-step-box">
+        <p style="font-size:0.8125rem;color:var(--muted);">Week 1-2</p>
+      </div>
+      <div class="wf-step-box">
+        <p style="font-size:0.8125rem;color:var(--muted);">Week 2-3</p>
+      </div>
+      <div class="wf-step-box">
+        <p style="font-size:0.8125rem;color:var(--muted);">Week 3-4</p>
+      </div>
+      <div class="wf-step-box">
+        <p style="font-size:0.8125rem;color:var(--muted);">Week 4</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6 — CTA BANNER (animated BG) ===== -->
+<section class="section-sm" style="padding:5rem 0;background:var(--bg-light);">
+  <div class="container">
+    <div class="cta-banner cta-animated reveal" style="position:relative;padding:6rem 4rem;text-align:center;border-radius:32px;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 50%, rgba(255,46,147,0.4) 0%, transparent 60%);pointer-events:none;"></div>
+      <div style="position:relative;z-index:2;">
+        <span class="pill pill-accent" style="margin-bottom:2rem;display:inline-block;">Ready?</span>
+        <h2 style="color:var(--white);margin-bottom:1.5rem;max-width:700px;margin-inline:auto;">Let's Build Delightful Experiences Together</h2>
+        <p style="color:rgba(255,255,255,0.6);margin-bottom:2.5rem;max-width:520px;margin-inline:auto;">Book a 30-minute discovery call. Zero commitment — just a conversation about your product's motion potential.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-accent" style="background:var(--white);color:var(--accent);">Book Call</a>
+          <a href="portfolio.html" class="btn btn-outline-white">View Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="color:var(--brand);margin-bottom:1rem;"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix</div>
+        <p style="max-width:280px;font-size:0.9375rem;">I craft cinematic interface motion for SaaS products — micro-interactions, app transitions, and full motion systems.</p>
+        <div class="social-icons" >
+          <a href="#" class="social-icon" aria-label="Twitter" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.05c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Dribbble" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm8.56-12c0-1.08-.22-2.12-.6-3.09-2.06.66-4.52 1.02-7.16 1.02-1.22 0-2.43-.09-3.62-.26C9.17 12.87 9 16.29 9 20c.95.34 1.96.53 3 .53 4.72 0 8.56-3.83 8.56-8.53zm-10.74 8.2c0-3.64.18-6.93.5-9.98-2.67-.32-5.18-1.03-7.39-2.01A8.527 8.527 0 0 0 3.44 12c0 4.29 3.14 7.84 7.21 8.42l-.12-.01-.01-.01.03-.01..."/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Behance" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10.636c0-4.71-3.078-6.364-6.226-6.364-4.526 0-6.5 3.328-6.5 6.468 0 3.636 2.378 6.26 6.364 6.26 3.196 0 5.48-1.542 5.922-4h-2.756c-.476 1.054-1.606 1.482-2.966 1.482-1.986 0-2.884-1.12-2.986-3.262h8.924c.14-1.042.224-2.584.224-2.584zm-5.726-2.502c1.232 0 1.956.84 2.126 1.832h-4.364c.252-1.148 1.15-1.832 2.238-1.832zm-12.87-9.134h-5.13v17h5.71c4.152 0 6.264-1.638 6.264-4.526 0-2.486-1.516-3.414-2.75-3.804 1.106-.44 2.19-1.56 2.19-3.344 0-2.614-1.89-3.326-4.284-3.326zm.264 11.5h-2.5v-4.5h2.5c1.848 0 2.84.72 2.84 2.25 0 1.572-1 2.25-2.84 2.25zm-.25-7.5h-2.25v-4h2.25c1.554 0 2.47.536 2.47 2 0 1.482-.916 2-2.47 2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5 style="color:#ffffff;margin-bottom:1.25rem;">Pages</h5>
+        <div class="footer-links">
+          <a href="about.html">About</a><a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a><a href="case-studies.html">Case Studies</a>
+          <a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="color:#ffffff;margin-bottom:1.25rem;">Connect</h5>
+        <div class="footer-links">
+          <a href="#">Dribbble</a><a href="#">Twitter / X</a>
+          <a href="#">LinkedIn</a><a href="#">Behance</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p style="margin:0;font-size:0.875rem;">&copy; 2026 Kinetix. All rights reserved.</p>
+      
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+
+
+
+<!-- FOOLPROOF BACK TO TOP -->
+<style>
+.b2t-fixed {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--brand, #FF2E93);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 890;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 46, 147, 0.3);
+}
+.b2t-fixed.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.b2t-fixed:hover {
+  background: #E62280;
+  box-shadow: 0 8px 24px rgba(255, 46, 147, 0.5);
+  transform: translateY(-4px);
+}
+
+    /* Featured Grid Responsive */
+    .featured-grid {
+      display: flex;
+      height: 450px;
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 991px) { /* Tablet view (2x2) */
+      .featured-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        height: auto !important;
+      }
+      .featured-grid > div {
+        height: 350px !important;
+        flex: none !important;
+      }
+      .featured-grid > div .overlay-content {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      .featured-grid > div .title-vertical {
+        opacity: 0 !important;
+      }
+    }
+    @media (max-width: 767px) { /* Mobile view (1 by 1) */
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+      .featured-grid > div {
+        height: 380px !important;
+      }
+      .featured-grid h3 {
+        font-size: 2rem !important;
+        white-space: normal !important;
+      }
+      .featured-grid .overlay-content {
+        padding: 1.5rem !important;
+      }
+    }
+
+  
+    @media (max-width: 991px) {
+      .mobile-center-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-header > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-header-simple {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text > p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .mobile-center-text h4, .mobile-center-text p.caption {
+        text-align: left !important;
+      }
+      .mobile-center-text ul {
+        display: inline-flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .mobile-center-text a.btn {
+        align-self: center !important;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+  
+    @media (max-width: 991px) {
+      .mobile-center-text div {
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-text div p, .mobile-center-text div strong {
+        text-align: center !important;
+      }
+      .mobile-center-text .outcome-box {
+        border-left: none !important;
+        border-bottom: 4px solid var(--highlight) !important;
+      }
+      .mobile-center-text .outcome-box-green {
+        border-left: none !important;
+        border-bottom: 4px solid var(--accent) !important;
+      }
+    }
+
+  </style>
+<button class="b2t-fixed" id="b2t-btn" aria-label="Back to Top">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script>
+  (function() {
+    var btn = document.getElementById('b2t-btn');
+    if (btn) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          btn.classList.add('show');
+        } else {
+          btn.classList.remove('show');
+        }
+      });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

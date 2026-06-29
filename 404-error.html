@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Error | Freelance UI Motion Designer</title>
+    <meta name="description" content="Award-Winning Motion UI Designer creating world-class interface motion and product animations.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dark-mode.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>
+            Kinetix
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home 1</a></li>
+            <li><a href="home-2.html">Home 2</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="contact.html" class="btn btn-primary">Reach Me</a>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="offcanvas">
+  <button class="close-menu-btn" aria-label="Close menu">&times;</button>
+        <div class="offcanvas-links">
+            <a href="index.html">Home 1</a>
+            <a href="home-2.html">Home 2</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="case-studies.html">Case Studies</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact</a>
+            <a href="contact.html" class="btn btn-primary" style="margin-top: 1rem;">Reach Me</a>
+        </div>
+    </div>
+
+    <main>
+
+    <section class="section" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: 10rem;">
+        <div class="reveal">
+            <h1 style="font-size: 8rem; color: var(--accent); margin-bottom: 1rem;">404</h1>
+            <h2 style="margin-bottom: 2rem;">Page Not Found</h2>
+            <a href="index.html" class="btn btn-primary">Return Home</a>
+        </div>
+    </section>
+
+    </main>
+
+    <footer style="background: var(--bg-dark); color: var(--white); padding: 4rem 0; margin-top: 4rem;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+            <div class="logo" style="color:var(--brand);">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>
+                Kinetix
+            </div>
+            <p style="color: var(--muted); margin: 0;">&copy; 2026 Kinetix. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+
+
+
+<!-- FOOLPROOF BACK TO TOP -->
+<style>
+.b2t-fixed {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--brand, #FF2E93);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 890;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 46, 147, 0.3);
+}
+.b2t-fixed.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.b2t-fixed:hover {
+  background: #E62280;
+  box-shadow: 0 8px 24px rgba(255, 46, 147, 0.5);
+  transform: translateY(-4px);
+}
+</style>
+<button class="b2t-fixed" id="b2t-btn" aria-label="Back to Top">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script>
+  (function() {
+    var btn = document.getElementById('b2t-btn');
+    if (btn) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          btn.classList.add('show');
+        } else {
+          btn.classList.remove('show');
+        }
+      });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

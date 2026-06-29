@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototype Playground – Home 2 | UI Motion Designer</title>
+  <meta name="description" content="Interactive UI animation library, live prototypes, motion principles, and icon collection — all in one immersive playground.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dark-mode.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+  <style>
+
+    /* Floating windows in hero */
+    .windows-stage {
+      position: relative;
+      height: 520px;
+    }
+    .win {
+      position: absolute;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    }
+    .win:nth-child(1) { width: 65%; right: 0; top: 0; transform: rotateY(-10deg) rotateX(6deg); }
+    .win:nth-child(2) { width: 45%; left: 0; bottom: 0; transform: rotateY(8deg) rotateX(-4deg) translateZ(60px); }
+
+    /* Motion path viz */
+    .path-line {
+      stroke: var(--accent);
+      stroke-dasharray: 6 4;
+      fill: none;
+      animation: dash 3s linear infinite;
+    }
+    @keyframes dash { to { stroke-dashoffset: -100; } }
+
+    /* Principle block */
+    .principle {
+      display: flex; gap: 2rem; align-items: flex-start;
+      padding: 2rem; border-radius: 16px;
+      border-left: 3px solid var(--accent);
+      background: rgba(255,46,147,0.06);
+      transition: background 0.3s;
+    }
+    .principle:hover { background: rgba(255,46,147,0.12); }
+    .principle-num { font-family: 'Outfit'; font-weight: 560; font-size: 2rem; color: rgba(255,46,147,0.3); flex-shrink: 0; line-height: 1; }
+
+    /* Experiment card */
+    .exp-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .exp-tag { position: absolute; top: 1rem; left: 1rem; }
+  
+    @media (max-width: 991px) {
+      .mobile-center-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-header > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-header-simple {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text > p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .mobile-center-text h4, .mobile-center-text p.caption {
+        text-align: left !important;
+      }
+      .cta-banner {
+        text-align: center;
+      }
+    }
+
+  </style>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+</head>
+<body>
+
+<div class="cursor-glow" style="background:radial-gradient(circle, rgba(255,46,147,0.07) 0%, transparent 70%);"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="logo" >
+    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home 1</a></li>
+    <li><a href="home-2.html">Home 2</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="case-studies.html">Case Studies</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div style="display:flex;gap:0.5rem;">
+      <button class="nav-icon-btn dm-toggle-btn" aria-label="Toggle Dark Mode">◑</button>
+      <button class="nav-icon-btn rtl-toggle-btn" aria-label="Toggle RTL">⇄</button>
+    </div>
+    <a href="contact.html" class="btn btn-accent">Reach Me</a>
+    <button class="hamburger" aria-label="Open menu">
+      <div class="hamburger-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<div class="offcanvas-overlay"></div>
+<div class="offcanvas">
+  <button class="close-menu-btn" aria-label="Close menu">&times;</button>
+  <div class="offcanvas-links">
+    <a href="index.html">Home 1</a><a href="home-2.html">Home 2</a>
+    <a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="portfolio.html">Portfolio</a><a href="case-studies.html">Case Studies</a>
+    <a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="offcanvas-footer">
+    <div style="display:flex;gap:1rem;margin-bottom:1rem;justify-content:center;">
+      <button class="nav-icon-btn dm-toggle-btn" aria-label="Toggle Dark Mode">◑</button>
+      <button class="nav-icon-btn rtl-toggle-btn" aria-label="Toggle RTL">⇄</button>
+    </div>
+    <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Reach Me</a>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO — Prototype Playground -->
+<section class="hero-viewport" style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:100dvh;padding-top:5rem;">
+
+  <!-- Background image -->
+  <div style="position:absolute;inset:0;z-index:0;">
+    <img src="assets/images/img3_motion_sandbox.png" alt="UI Motion Sandbox"
+         style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+  </div>
+
+  <!-- Dark overlay layers -->
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom, rgba(7,10,16,0.55) 0%, rgba(7,10,16,0.72) 60%, rgba(7,10,16,0.92) 100%);"></div>
+  <div style="position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,46,147,0.18) 0%, transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 40% 40% at 80% 20%, rgba(255,46,147,0.1) 0%, transparent 60%);pointer-events:none;"></div>
+
+  <!-- Centered content -->
+  <div class="container reveal" style="position:relative;z-index:3;text-align:center;max-width:780px;">
+    <span class="pill pill-highlight" style="margin-bottom:2rem;display:inline-block;">Interactive Prototype Playground</span>
+    <h1 style="color:#ffffff;margin-bottom:1.5rem;font-size:clamp(2.6rem,5.5vw,4.5rem);line-height:1.1;">Experience The<br>UI Motion Sandbox</h1>
+    <p class="lead" style="color:rgba(255,255,255,0.55);margin-bottom:2.5rem;max-width:560px;margin-inline:auto;">A curated library of live interface transitions, motion path demonstrations, and interactive icon systems — all built for modern SaaS products.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <a href="#library" class="btn btn-accent">Explore Library</a>
+      <a href="case-studies.html" class="btn btn-outline-white">See Case Studies</a>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- SECTION 1 — UI Animation Library -->
+<section id="library" class="section" style="background:var(--bg-light);border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="label" style="color:var(--highlight);">Library</span>
+      <h2 style="color:var(--primary);margin-top:0.5rem;">UI Animation Library</h2>
+      <p>Modular motion components for SaaS design systems.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+      <div class="card card-tilt reveal" style="padding:2rem;text-align:center;">
+        <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;"><img src="assets/images/img4.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <h4 style="color:var(--primary);">Cards</h4><p style="font-size:0.875rem;">Hover, flip, expand states.</p>
+      </div>
+      <div class="card card-tilt reveal reveal-delay-1" style="padding:2rem;text-align:center;">
+        <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;"><img src="assets/images/img3_home2_1.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <h4 style="color:var(--primary);">Modals</h4><p style="font-size:0.875rem;">Entrance spring physics.</p>
+      </div>
+      <div class="card card-tilt reveal reveal-delay-2" style="padding:2rem;text-align:center;">
+        <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;"><img src="assets/images/img1.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <h4 style="color:var(--primary);">Drawers</h4><p style="font-size:0.875rem;">Gesture-driven side panels.</p>
+      </div>
+      <div class="card card-tilt reveal reveal-delay-3" style="padding:2rem;text-align:center;">
+        <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;"><img src="assets/images/img2_home2_1.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <h4 style="color:var(--primary);">Dropdowns</h4><p style="font-size:0.875rem;">Stagger reveal with easing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — What We Craft (rich capabilities section) -->
+<section class="section" style="background:var(--white);overflow:hidden;position:relative;">
+
+  <!-- Glow orbs -->
+  <div style="position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(255,46,147,0.1) 0%,transparent 70%);top:-150px;left:-150px;pointer-events:none;"></div>
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,46,147,0.07) 0%,transparent 70%);bottom:-100px;right:-100px;pointer-events:none;"></div>
+
+  <div class="container" style="position:relative;z-index:2;">
+
+    <!-- Section header -->
+    <div class="reveal" style="text-align:center;margin-bottom:5rem;">
+      <span class="label" style="color:var(--highlight);letter-spacing:0.12em;">Capabilities</span>
+      <h2 style="color:var(--primary);margin-top:0.5rem;font-size:clamp(2rem,4vw,3rem);">What I Craft</h2>
+      <p style="color:var(--muted);max-width:500px;margin:0.75rem auto 0;">Every pixel in motion — from single micro-interactions to full product motion systems, built to delight your users.</p>
+    </div>
+
+    <!-- Stat counters row -->
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:6rem;text-align:center;">
+      <div style="padding:2rem;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+        <div style="font-family:'Outfit',sans-serif;font-size:3rem;font-weight:580;color:#FF2E93;line-height:1;margin-bottom:0.5rem;">120+</div>
+        <div style="font-size:0.875rem;color:var(--muted);">Projects Delivered</div>
+      </div>
+      <div style="padding:2rem;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+        <div style="font-family:'Outfit',sans-serif;font-size:3rem;font-weight:580;color:#FF2E93;line-height:1;margin-bottom:0.5rem;">48</div>
+        <div style="font-size:0.875rem;color:var(--muted);">Happy Clients</div>
+      </div>
+      <div style="padding:2rem;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+        <div style="font-family:'Outfit',sans-serif;font-size:3rem;font-weight:580;color:#FF2E93;line-height:1;margin-bottom:0.5rem;">+42%</div>
+        <div style="font-size:0.875rem;color:var(--muted);">Avg. Retention Lift</div>
+      </div>
+      <div style="padding:2rem;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+        <div style="font-family:'Outfit',sans-serif;font-size:3rem;font-weight:580;color:#4ADE80;line-height:1;margin-bottom:0.5rem;">98%</div>
+        <div style="font-size:0.875rem;color:var(--muted);">Client Satisfaction</div>
+      </div>
+    </div>
+
+    <!-- Editorial split: feature list + image collage -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;">
+
+      <!-- Left: Feature capability list -->
+      <div class="reveal mobile-center-header-simple">
+        <span class="label" style="color:var(--brand);">Full-Spectrum Motion</span>
+        <h3 style="color:var(--primary);margin-top:0.75rem;margin-bottom:2.5rem;font-size:clamp(1.6rem,3vw,2.25rem);">From a single micro-interaction to a complete motion system</h3>
+
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <div style="display:flex;align-items:flex-start;gap:1.25rem;padding:1.5rem;border-radius:16px;background:rgba(255,46,147,0.06);border:1px solid rgba(255,46,147,0.12);transition:background 0.3s;">
+            <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#FF2E93,#ff6eb5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">⚡</div>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;">Micro-Interaction Design</div>
+              <div style="font-size:0.875rem;color:var(--muted);line-height:1.6;">Button states, form feedback, skeleton loaders — every tactile moment engineered for delight.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:1.25rem;padding:1.5rem;border-radius:16px;background:rgba(255,46,147,0.06);border:1px solid rgba(255,46,147,0.12);transition:background 0.3s;">
+            <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#FF2E93,#ff6eb5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">🎬</div>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;">App Transition Choreography</div>
+              <div style="font-size:0.875rem;color:var(--muted);line-height:1.6;">Shared-element routes, liquid page exits and depth-scaling overlays with full developer handoff.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:1.25rem;padding:1.5rem;border-radius:16px;background:rgba(255,46,147,0.06);border:1px solid rgba(255,46,147,0.12);transition:background 0.3s;">
+            <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#FF2E93,#ff6eb5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">📐</div>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;">Motion Design Systems</div>
+              <div style="font-size:0.875rem;color:var(--muted);line-height:1.6;">Duration tokens, easing libraries and choreography rules documented for your entire team to scale.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:1.25rem;padding:1.5rem;border-radius:16px;background:rgba(255,46,147,0.06);border:1px solid rgba(255,46,147,0.12);transition:background 0.3s;">
+            <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#FF2E93,#ff6eb5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">📦</div>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;">Production-Ready Delivery</div>
+              <div style="font-size:0.875rem;color:var(--muted);line-height:1.6;">Framer Motion code, Lottie JSON, ProtoPie Cloud — shipped in your preferred format, ready to implement.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <a href="services.html" class="btn btn-primary" style="margin-top:2.5rem;">Explore All Services →</a>
+      </div>
+
+      <!-- Right: stacked image collage -->
+      <div class="reveal reveal-delay-1" style="position:relative;">
+        <!-- Main image -->
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.5);">
+          <img src="assets/images/img1.png" alt="Motion Design Work" style="width:100%;display:block;">
+        </div>
+        <!-- Overlapping small image -->
+        <div style="position:absolute;bottom:-2rem;left:-2rem;width:55%;border-radius:18px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,0.5);border:3px solid rgba(255,255,255,0.06);">
+          <img src="assets/images/img4.png" alt="Analytics Motion" style="width:100%;display:block;">
+        </div>
+        <!-- Floating badge -->
+        <div style="position:absolute;top:1.5rem;right:-1.5rem;background:rgba(15,17,23,0.9);backdrop-filter:blur(12px);border:1px solid rgba(255,46,147,0.3);border-radius:14px;padding:1rem 1.25rem;box-shadow:0 12px 30px rgba(0,0,0,0.4);">
+          <div style="font-size:0.7rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.35rem;">Avg. handoff time</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:580;color:#FF2E93;">3 days</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 3 — Design Systems In Motion (editorial text + SVG path) -->
+<section class="section" style="background:var(--bg-light);border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:center;gap:6rem;">
+      <div class="reveal mobile-center-header-simple">
+        <span class="label" style="color:var(--highlight);">System</span>
+        <h2 style="color:var(--primary);margin-top:0.5rem;margin-bottom:1.5rem;">Design Systems In Motion</h2>
+        <p style="margin-bottom:2rem;">Establishing standard duration tokens, cubic-bezier easing curves, and choreography rules so all components across your product feel physically consistent.</p>
+        <div style="display:flex;flex-direction:column;gap:1.25rem;margin-bottom:2.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
+            <span style="color:var(--primary);font-weight:500;">--dur-fast</span><span style="color:var(--muted);">150ms</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:rgba(255,46,147,0.1);border-radius:12px;border:1px solid rgba(255,46,147,0.2);">
+            <span style="color:var(--primary);font-weight:500;">--dur-base</span><span style="color:var(--accent);">400ms ← brand default</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
+            <span style="color:var(--primary);font-weight:500;">--dur-slow</span><span style="color:var(--muted);">700ms</span>
+          </div>
+        </div>
+        <a href="services.html" class="btn btn-accent">Read Documentation</a>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;opacity:0.8;">
+          <path class="path-line" d="M 40 250 C 120 250, 120 50, 200 50 S 280 150, 360 150" stroke-width="2"/>
+          <circle cx="40" cy="250" r="6" fill="var(--accent)"/>
+          <circle cx="360" cy="150" r="6" fill="var(--highlight)"/>
+          <text x="30" y="278" fill="rgba(255,255,255,0.4)" font-size="11" font-family="Inter">0,0</text>
+          <text x="340" y="145" fill="rgba(255,255,255,0.4)" font-size="11" font-family="Inter">1,1</text>
+          <path d="M 40 250 L 120 250" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4"/>
+          <path d="M 360 150 L 280 150" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — Icon Animation Collection -->
+<section class="section" style="background:var(--bg-light);border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="label" style="color:var(--highlight);">Icons</span>
+      <h2 style="color:var(--primary);margin-top:0.5rem;">Icon Animation Collection</h2>
+      <p style="color:var(--muted);max-width:480px;margin:0.75rem auto 0;">Lottie-ready micro-interaction icon suites — every state crafted with physics-based easing.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+
+      <!-- Card 1: Navigation -->
+      <div class="reveal" style="border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s;">
+        <div style="overflow:hidden;aspect-ratio:4/3;">
+          <img src="assets/images/icon_nav.png" alt="Navigation Icon Animation"
+               style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);"
+               onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;font-size:1.05rem;">Navigation</div>
+          <div style="font-size:0.8125rem;color:var(--muted);">Menu ↔ Close morph with spring physics</div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(255,46,147,0.15);color:#FF2E93;border:1px solid rgba(255,46,147,0.25);">Lottie</span>
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(255,46,147,0.15);color:#FF2E93;border:1px solid rgba(255,46,147,0.25);">SVG Morph</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Actions -->
+      <div class="reveal reveal-delay-1" style="border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s;">
+        <div style="overflow:hidden;aspect-ratio:4/3;">
+          <img src="assets/images/icon_actions.png" alt="Actions Icon Animation"
+               style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);"
+               onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;font-size:1.05rem;">Actions</div>
+          <div style="font-size:0.8125rem;color:var(--muted);">Like, share & bookmark with haptic bounce</div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(255,46,147,0.12);color:#FF2E93;border:1px solid rgba(255,46,147,0.22);">Spring</span>
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(255,46,147,0.12);color:#FF2E93;border:1px solid rgba(255,46,147,0.22);">GSAP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Status -->
+      <div class="reveal reveal-delay-2" style="border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s;">
+        <div style="overflow:hidden;aspect-ratio:4/3;">
+          <img src="assets/images/icon_status.png" alt="Status Icon Animation"
+               style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);"
+               onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;font-size:1.05rem;">Status</div>
+          <div style="font-size:0.8125rem;color:var(--muted);">Loading → success → error state chain</div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(74,222,128,0.1);color:#4ADE80;border:1px solid rgba(74,222,128,0.2);">Framer</span>
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(74,222,128,0.1);color:#4ADE80;border:1px solid rgba(74,222,128,0.2);">Lottie</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Feedback -->
+      <div class="reveal reveal-delay-3" style="border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s;">
+        <div style="overflow:hidden;aspect-ratio:4/3;">
+          <img src="assets/images/icon_feedback.png" alt="Feedback Icon Animation"
+               style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);"
+               onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.35rem;font-size:1.05rem;">Feedback</div>
+          <div style="font-size:0.8125rem;color:var(--muted);">Haptic ripple rings for touch confirmation</div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(255,46,147,0.15);color:#FF2E93;border:1px solid rgba(255,46,147,0.25);">CSS</span>
+            <span style="font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(255,46,147,0.15);color:#FF2E93;border:1px solid rgba(255,46,147,0.25);">ProtoPie</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 5 — Motion Principles (numbered editorial) -->
+<section class="section" style="background:var(--white);border-top:1px solid var(--muted);">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:start;gap:8rem;">
+      <div class="reveal mobile-center-header-simple">
+        <span class="label" style="color:var(--highlight);">Philosophy</span>
+        <h2 style="color:var(--primary);margin-top:0.5rem;margin-bottom:3rem;">Motion Principles</h2>
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <div class="principle reveal"><div class="principle-num">01</div><div><h4 style="color:var(--primary);margin-bottom:0.5rem;">Purposeful</h4><p>Every animation must earn its place. Motion that doesn't aid comprehension is noise.</p></div></div>
+          <div class="principle reveal reveal-delay-1"><div class="principle-num">02</div><div><h4 style="color:var(--primary);margin-bottom:0.5rem;">Spatial Awareness</h4><p>Elements should orient the user within the product hierarchy — not disorient them.</p></div></div>
+          <div class="principle reveal reveal-delay-2"><div class="principle-num">03</div><div><h4 style="color:var(--primary);margin-bottom:0.5rem;">Physics-Based</h4><p>Real-world mass, momentum and friction create believable, satisfying interfaces.</p></div></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1" style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;margin-top:4rem;">
+        <img src="assets/images/img4.png" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — Latest Experiments -->
+<section class="section" style="background:var(--bg-light);border-top:1px solid rgba(255,255,255,0.06);overflow:hidden;position:relative;">
+
+  <!-- Ambient glow -->
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,46,147,0.08) 0%,transparent 70%);bottom:-100px;right:10%;pointer-events:none;"></div>
+
+  <div class="container" style="position:relative;z-index:2;">
+
+    <!-- Header -->
+    <div class="reveal mobile-center-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <span class="label" style="color:var(--highlight);">Lab</span>
+        <h2 style="color:var(--primary);margin-top:0.5rem;">Latest Experiments</h2>
+        <p style="color:var(--muted);max-width:400px;margin-top:0.5rem;font-size:0.9375rem;">Live prototype explorations — each pushing the boundary of what interface motion can feel like.</p>
+      </div>
+      <a href="portfolio.html" class="btn" style="background:var(--bg-light);color:var(--primary);border:1px solid var(--muted);">View All Experiments →</a>
+    </div>
+
+    <!-- Row 1: Featured large + 2 stacked -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+
+      <!-- Featured card -->
+      <div class="exp-card reveal" style="aspect-ratio:auto;min-height:420px;">
+        <img src="assets/images/img2.png" style="width:100%;height:100%;object-fit:cover;transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);"
+             onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        <span class="exp-tag pill pill-accent">Framer Motion</span>
+        
+      </div>
+
+      <!-- Right Column Content -->
+      <div class="reveal reveal-delay-1" style="display:flex;flex-direction:column;justify-content:center;padding:1rem;">
+        <span class="label" style="color:var(--brand);margin-bottom:0.5rem;letter-spacing:0.1em;text-transform:uppercase;font-size:0.8rem;">Experimental Grounds</span>
+        <h3 style="color:var(--primary);margin-bottom:1.5rem;font-size:clamp(1.75rem,3vw,2.25rem);line-height:1.2;">Where Motion Meets Innovation</h3>
+        <p style="color:var(--muted);font-size:1.0625rem;line-height:1.6;margin-bottom:2rem;">
+          The lab is my dedicated space for pushing the boundaries of interaction design. I build interactive prototypes that test the limits of browser performance, experimenting with native-like fluidity on the web.
+        </p>
+        
+        <ul style="list-style:none;padding:0;margin-bottom:2.5rem;display:flex;flex-direction:column;gap:1.5rem;">
+          <li style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,46,147,0.1);color:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.25rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <h5 style="color:var(--primary);margin-bottom:0.25rem;font-size:1.05rem;">Physics Simulations</h5>
+              <p style="color:var(--muted);font-size:0.9375rem;line-height:1.5;">Inertia-based spring systems that respond naturally to user gestures.</p>
+            </div>
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,46,147,0.1);color:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.25rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <h5 style="color:var(--primary);margin-bottom:0.25rem;font-size:1.05rem;">Advanced Visualizations</h5>
+              <p style="color:var(--muted);font-size:0.9375rem;line-height:1.5;">Complex GSAP morphSVG transformations rendering live chart transitions.</p>
+            </div>
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,46,147,0.1);color:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.25rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <h5 style="color:var(--primary);margin-bottom:0.25rem;font-size:1.05rem;">Hardware-Accelerated Flows</h5>
+              <p style="color:var(--muted);font-size:0.9375rem;line-height:1.5;">Harnessing WebGL and 3D space to create deep parallax illusions.</p>
+            </div>
+          </li>
+        </ul>
+        
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="portfolio.html" class="btn btn-accent">Read Case Studies</a>
+          <a href="contact.html" class="btn" style="border:1px solid var(--muted);color:var(--primary);background:transparent;">Request Access</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 6B — More from the Lab -->
+<section class="section" style="background:var(--white);border-top:1px solid var(--muted);overflow:hidden;position:relative;">
+  <div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,46,147,0.06) 0%,transparent 70%);top:-150px;left:-100px;pointer-events:none;"></div>
+  <div class="container" style="position:relative;z-index:2;">
+
+    <div class="reveal mobile-center-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <span class="label" style="color:rgba(255,46,147,0.85);">More Experiments</span>
+        <h2 style="color:var(--primary);margin-top:0.5rem;">Deeper into the Lab</h2>
+        <p style="color:var(--muted);max-width:420px;margin-top:0.5rem;font-size:0.9375rem;">Advanced physics prototypes, cursor interactions, and 3D depth experiments.</p>
+      </div>
+      <a href="portfolio.html" class="btn" style="background:var(--bg-light);color:var(--primary);border:1px solid var(--muted);">Full Portfolio →</a>
+    </div>
+
+    <!-- 4-column card grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:4rem;">
+
+      <div class="reveal" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;">
+        <div style="aspect-ratio:16/9;overflow:hidden;">
+          <img src="assets/images/img4.png" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;flex:1;display:flex;flex-direction:column;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.65rem;border-radius:100px;background:rgba(255,46,147,0.12);color:#FF2E93;border:1px solid rgba(255,46,147,0.2);">ProtoPie</span>
+            <span style="font-size:0.7rem;color:var(--muted);">Advanced</span>
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.5rem;">Gesture Physics Drawer</div>
+          <div style="font-size:0.8125rem;color:var(--muted);line-height:1.6;flex:1;">A ProtoPie prototype simulating native iOS rubber-band physics for a bottom sheet drawer.</div>
+          <a href="portfolio.html" style="margin-top:1.25rem;font-size:0.8125rem;color:#FF2E93;text-decoration:none;font-weight:500;">View Experiment →</a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;">
+        <div style="aspect-ratio:16/9;overflow:hidden;">
+          <img src="assets/images/img2.png" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;flex:1;display:flex;flex-direction:column;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.65rem;border-radius:100px;background:rgba(255,46,147,0.15);color:#FF2E93;border:1px solid rgba(255,46,147,0.25);">CSS + JS</span>
+            <span style="font-size:0.7rem;color:var(--muted);">Intermediate</span>
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.5rem;">Magnetic Button Field</div>
+          <div style="font-size:0.8125rem;color:var(--muted);line-height:1.6;flex:1;">Buttons that attract the cursor within a proximity field — a satisfying hover state that feels physical.</div>
+          <a href="portfolio.html" style="margin-top:1.25rem;font-size:0.8125rem;color:#FF2E93;text-decoration:none;font-weight:500;">View Experiment →</a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;">
+        <div style="aspect-ratio:16/9;overflow:hidden;">
+          <img src="assets/images/img3_home2_3.png" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;flex:1;display:flex;flex-direction:column;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.65rem;border-radius:100px;background:rgba(74,222,128,0.1);color:#4ADE80;border:1px solid rgba(74,222,128,0.2);">Three.js</span>
+            <span style="font-size:0.7rem;color:var(--muted);">Expert</span>
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.5rem;">3D Card Depth Parallax</div>
+          <div style="font-size:0.8125rem;color:var(--muted);line-height:1.6;flex:1;">Mouse-tracked 3D tilt with layered depth planes — creates a stunning depth illusion on flat screens.</div>
+          <a href="portfolio.html" style="margin-top:1.25rem;font-size:0.8125rem;color:#4ADE80;text-decoration:none;font-weight:500;">View Experiment →</a>
+        </div>
+      </div>
+
+      <!-- 4th card -->
+      <div class="reveal reveal-delay-3" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;">
+        <div style="aspect-ratio:16/9;overflow:hidden;">
+          <img src="assets/images/img1.png" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="padding:1.5rem;flex:1;display:flex;flex-direction:column;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+            <span style="font-size:0.7rem;padding:0.2rem 0.65rem;border-radius:100px;background:rgba(6,182,212,0.1);color:#06B6D4;border:1px solid rgba(6,182,212,0.2);">CSS</span>
+            <span style="font-size:0.7rem;color:var(--muted);">Beginner</span>
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-weight:540;color:var(--primary);margin-bottom:0.5rem;">Scroll Velocity Parallax</div>
+          <div style="font-size:0.8125rem;color:var(--muted);line-height:1.6;flex:1;">Elements drift at different scroll speeds creating a layered depth effect — pure CSS with IntersectionObserver.</div>
+          <a href="portfolio.html" style="margin-top:1.25rem;font-size:0.8125rem;color:#06B6D4;text-decoration:none;font-weight:500;">View Experiment →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom CTA strip -->
+    <div class="reveal" style="border-radius:20px;background:linear-gradient(135deg,rgba(255,46,147,0.12) 0%,rgba(255,46,147,0.08) 100%);border:1px solid rgba(255,46,147,0.2);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <div style="font-family:'Outfit',sans-serif;font-weight:560;color:var(--primary);font-size:1.25rem;margin-bottom:0.35rem;">Have a wild motion idea?</div>
+        <div style="font-size:0.9375rem;color:var(--muted);">I'm always open to exploring experimental UI concepts — let's prototype it together.</div>
+      </div>
+      <a href="contact.html" class="btn btn-accent" style="flex-shrink:0;">Start a Conversation →</a>
+    </div>
+
+  </div>
+</section>
+
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="color:var(--brand);margin-bottom:1rem;"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix</div>
+        <p style="max-width:280px;font-size:0.9375rem;">I craft cinematic interface motion for SaaS products — micro-interactions, app transitions, and full motion systems.</p>
+        <div class="social-icons" >
+          <a href="#" class="social-icon" aria-label="Twitter" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.05c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Dribbble" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm8.56-12c0-1.08-.22-2.12-.6-3.09-2.06.66-4.52 1.02-7.16 1.02-1.22 0-2.43-.09-3.62-.26C9.17 12.87 9 16.29 9 20c.95.34 1.96.53 3 .53 4.72 0 8.56-3.83 8.56-8.53zm-10.74 8.2c0-3.64.18-6.93.5-9.98-2.67-.32-5.18-1.03-7.39-2.01A8.527 8.527 0 0 0 3.44 12c0 4.29 3.14 7.84 7.21 8.42l-.12-.01-.01-.01.03-.01..."/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Behance" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10.636c0-4.71-3.078-6.364-6.226-6.364-4.526 0-6.5 3.328-6.5 6.468 0 3.636 2.378 6.26 6.364 6.26 3.196 0 5.48-1.542 5.922-4h-2.756c-.476 1.054-1.606 1.482-2.966 1.482-1.986 0-2.884-1.12-2.986-3.262h8.924c.14-1.042.224-2.584.224-2.584zm-5.726-2.502c1.232 0 1.956.84 2.126 1.832h-4.364c.252-1.148 1.15-1.832 2.238-1.832zm-12.87-9.134h-5.13v17h5.71c4.152 0 6.264-1.638 6.264-4.526 0-2.486-1.516-3.414-2.75-3.804 1.106-.44 2.19-1.56 2.19-3.344 0-2.614-1.89-3.326-4.284-3.326zm.264 11.5h-2.5v-4.5h2.5c1.848 0 2.84.72 2.84 2.25 0 1.572-1 2.25-2.84 2.25zm-.25-7.5h-2.25v-4h2.25c1.554 0 2.47.536 2.47 2 0 1.482-.916 2-2.47 2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5 style="color:#ffffff;margin-bottom:1.25rem;">Pages</h5>
+        <div class="footer-links">
+          <a href="about.html">About</a><a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a><a href="case-studies.html">Case Studies</a>
+          <a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="color:#ffffff;margin-bottom:1.25rem;">Connect</h5>
+        <div class="footer-links">
+          <a href="#">Dribbble</a><a href="#">Twitter / X</a>
+          <a href="#">LinkedIn</a><a href="#">Behance</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p style="margin:0;font-size:0.875rem;">&copy; 2026 Kinetix. All rights reserved.</p>
+      
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+
+
+
+<!-- FOOLPROOF BACK TO TOP -->
+<style>
+.b2t-fixed {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--brand, #FF2E93);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 890;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 46, 147, 0.3);
+}
+.b2t-fixed.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.b2t-fixed:hover {
+  background: #E62280;
+  box-shadow: 0 8px 24px rgba(255, 46, 147, 0.5);
+  transform: translateY(-4px);
+}
+
+    @media (max-width: 991px) {
+      .mobile-center-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-header > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-header-simple {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text > p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .mobile-center-text h4, .mobile-center-text p.caption {
+        text-align: left !important;
+      }
+      .cta-banner {
+        text-align: center;
+      }
+    }
+
+  </style>
+<button class="b2t-fixed" id="b2t-btn" aria-label="Back to Top">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script>
+  (function() {
+    var btn = document.getElementById('b2t-btn');
+    if (btn) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          btn.classList.add('show');
+        } else {
+          btn.classList.remove('show');
+        }
+      });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

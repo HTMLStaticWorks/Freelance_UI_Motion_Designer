@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Freelance UI Motion Designer</title>
+  <meta name="description" content="World-class UI Motion Designer crafting cinematic micro-interactions, app transitions, and premium interface animations for SaaS & startups.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dark-mode.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+  <style>
+    /* Page-specific */
+
+    @media (max-width: 991px) {
+      .mobile-center-text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-text > p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .mobile-center-text h4, .mobile-center-text p.caption {
+        text-align: left !important;
+      }
+      .cta-banner {
+        text-align: center;
+      }
+    }
+
+
+    @media (max-width: 991px) {
+      .mobile-center-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+      .mobile-center-header > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mobile-center-header-simple {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+
+    .hero-grid-split {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+      min-height: inherit;
+    }
+    @media (min-width: 992px) {
+      .hero-grid-split {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+    }
+    @media (max-width: 991px) {
+      .hero-canvas {
+        height: auto !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        perspective: none !important;
+        margin-top: 2rem;
+      }
+      .float-card {
+        position: relative !important;
+        transform: none !important;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
+      }
+      .float-card:nth-child(1), .float-card:nth-child(2) {
+        width: 100% !important;
+        max-width: 320px !important;
+        right: auto !important; left: auto !important; top: auto !important; bottom: auto !important;
+      }
+    }
+
+    .hero-bg {
+      background: linear-gradient(135deg, #0d0f1a 0%, #111827 60%, #0f1117 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Light mode: slightly lighter, warm-dark gradient so it reads as intentional dark hero */
+    :root:not([data-theme="dark"]) .hero-bg {
+      background: linear-gradient(135deg, #0d1225 0%, #141c35 55%, #0f1520 100%);
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 900px; height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,46,147,0.18) 0%, transparent 70%);
+      top: -200px; right: -200px; pointer-events: none;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,46,147,0.1) 0%, transparent 70%);
+      bottom: -100px; left: 5%; pointer-events: none;
+    }
+
+    /* Floating UI cards in hero */
+    .hero-canvas {
+      position: relative;
+      height: 500px;
+      perspective: 1200px;
+    }
+    .float-card {
+      position: absolute;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .float-card:nth-child(1) { width: 62%; right: 0; top: 0; transform: rotateY(-8deg) rotateX(4deg); }
+    .float-card:nth-child(2) { width: 48%; left: 0; bottom: 0; transform: rotateY(6deg) rotateX(-3deg) translateZ(40px); }
+
+    /* Workflow step */
+    .wf-line {
+      display: flex; flex-direction: column; gap: 2rem;
+      border-left: 2px solid rgba(255,46,147,0.25);
+      padding-left: 2.5rem; margin-left: 0.75rem;
+    }
+    .wf-dot {
+      position: absolute;
+      left: calc(-2.5rem - 1px); top: 0.3rem;
+      width: 12px; height: 12px;
+      border-radius: 50%; background: var(--accent);
+      border: 3px solid var(--bg-dark);
+    }
+    .wf-step { position: relative; }
+
+    /* Trusted logos strip */
+    .logo-strip { display: flex; align-items: center; gap: 4rem; justify-content: center; flex-wrap: wrap; }
+    .logo-strip span {
+      font-family: 'Outfit', sans-serif; font-weight: 580; font-size: 1.25rem;
+      color: var(--muted); filter: grayscale(1); opacity: 0.4;
+      transition: opacity 0.3s, filter 0.3s;
+    }
+    .logo-strip span:hover { opacity: 0.7; filter: none; }
+
+    /* ── Desktop viewport fit: hero content fully visible without scroll ── */
+    @media (min-width: 1025px) {
+      .hero-viewport {
+        min-height: 100dvh;
+        max-height: 100dvh;
+        padding-top: 5.5rem;   /* tighter top — navbar is ~4.5rem tall */
+        align-items: center;
+      }
+      /* Scale h1 down slightly so all copy + buttons sit in frame */
+      .hero-viewport .hero-h1 {
+        font-size: clamp(2.2rem, 4vw, 3.6rem);
+        margin-bottom: 1rem !important;
+      }
+      .hero-viewport .lead {
+        margin-bottom: 1.5rem !important;
+      }
+      .hero-canvas {
+        height: 420px;
+      }
+    }
+
+    /* Testimonial quote */
+    .quote-mark {
+      font-family: Georgia, serif; font-size: 5rem; line-height: 0.6;
+      color: var(--accent); display: block; margin-bottom: 1.5rem; opacity: 0.4;
+    }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+</head>
+<body>
+
+<div class="cursor-glow"></div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="index.html" class="logo"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home 1</a></li>
+    <li><a href="home-2.html">Home 2</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="case-studies.html">Case Studies</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div style="display:flex;gap:0.5rem;">
+      <button class="nav-icon-btn dm-toggle-btn" aria-label="Toggle Dark Mode">◑</button>
+      <button class="nav-icon-btn rtl-toggle-btn" aria-label="Toggle RTL">⇄</button>
+    </div>
+    <a href="contact.html" class="btn btn-primary">Reach Me</a>
+    <button class="hamburger" aria-label="Open menu">
+      <div class="hamburger-icon"><span></span><span></span><span></span></div>
+    </button>
+  </div>
+</nav>
+
+<div class="offcanvas-overlay"></div>
+<div class="offcanvas">
+  <button class="close-menu-btn" aria-label="Close menu">&times;</button>
+  <div class="offcanvas-links">
+    <a href="index.html">Home 1</a>
+    <a href="home-2.html">Home 2</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="offcanvas-footer">
+    <div style="display:flex;gap:1rem;margin-bottom:1rem;justify-content:center;">
+      <button class="nav-icon-btn dm-toggle-btn" aria-label="Toggle Dark Mode">◑</button>
+      <button class="nav-icon-btn rtl-toggle-btn" aria-label="Toggle RTL">⇄</button>
+    </div>
+    <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Reach Me</a>
+  </div>
+</div>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero-viewport hero-bg">
+  <div class="container hero-grid-split">
+    <div class="reveal">
+      <span class="pill pill-accent" style="margin-bottom:2rem;display:inline-block;">UI Motion Designer · Open for Projects</span>
+      <h1 class="hero-h1" style="color:#ffffff;margin-bottom:1.5rem;">Motion That Makes Digital Products Feel <em style="color:var(--accent);font-style:normal;">Alive</em></h1>
+      <p class="lead" style="color:var(--muted);margin-bottom:2.5rem;max-width:480px;">I choreograph interface physics for SaaS companies, startups, and enterprise teams who know that great UX is felt, not just seen.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="portfolio.html" class="btn btn-accent">View Motion Portfolio</a>
+        <a href="contact.html" class="btn btn-outline-white">Book Discovery Call</a>
+      </div>
+    </div>
+    <div class="hero-canvas reveal reveal-delay-1">
+      <div class="float-card" data-parallax="12">
+        <img src="assets/images/img2.png" alt="UI Interface">
+      </div>
+      <div class="float-card" data-parallax="20">
+        <img src="assets/images/img4.png" alt="Analytics Card">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 1 — Featured Motion Projects ===== -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal mobile-center-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <span class="label">Portfolio</span>
+        <h2 style="margin-top:0.5rem;">Featured Motion Projects</h2>
+      </div>
+      <a href="portfolio.html" class="btn btn-outline">View All →</a>
+    </div>
+    <!-- Masonry-style 3-col layout, each unique height -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:1.5rem;">
+      <div class="masonry-item reveal" style="grid-row:span 2;aspect-ratio:3/5;">
+        <img src="assets/images/img1.png" alt="Fintech Dashboard">
+        <div class="masonry-overlay"><h3>Fintech Dashboard</h3><p>Data-viz motion system</p></div>
+      </div>
+      <div class="masonry-item reveal reveal-delay-1" style="aspect-ratio:4/3;">
+        <img src="assets/images/img3_timeline_ui.png" alt="Timeline UI">
+        <div class="masonry-overlay"><h3>Motion Timeline</h3><p>Editor interface physics</p></div>
+      </div>
+      <div class="masonry-item reveal reveal-delay-2" style="aspect-ratio:4/3;">
+        <img src="assets/images/img4.png" alt="Analytics">
+        <div class="masonry-overlay"><h3>Analytics Panel</h3><p>Scroll-linked counters</p></div>
+      </div>
+      <div class="masonry-item reveal reveal-delay-1" style="aspect-ratio:4/3;">
+        <img src="assets/images/img2.png" alt="Mobile Wallet">
+        <div class="masonry-overlay"><h3>Mobile Wallet</h3><p>Gestural spring physics</p></div>
+      </div>
+      <div class="masonry-item reveal reveal-delay-2" style="aspect-ratio:4/3;">
+        <img src="assets/images/img1.png" alt="SaaS">
+        <div class="masonry-overlay"><h3>SaaS Onboarding</h3><p>Retention-driving flows</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2 — Micro Interaction Showcase (split layout) ===== -->
+<section class="section" style="background:var(--bg-light);">
+  <div class="container reveal">
+    <div class="grid grid-2" style="align-items:center;gap:6rem;">
+      <div class="mobile-center-text">
+        <span class="label">Micro-Interactions</span>
+        <h2 style="margin-top:0.5rem;margin-bottom:1.5rem;">The Art of Subtlety</h2>
+        <p style="margin-bottom:2rem;">Transforming static states into tactile, satisfying experiences. Each state change — hover, press, load, error — becomes a moment of crafted delight.</p>
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,46,147,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <div style="width:16px;height:16px;border-radius:50%;background:var(--accent);"></div>
+            </div>
+            <div><h4>Button morphology</h4><p class="caption">Idle → Hover → Press → Loading → Success state chain.</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,46,147,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <div style="width:16px;height:4px;background:var(--highlight);border-radius:2px;"></div>
+            </div>
+            <div><h4>Skeleton shimmer</h4><p class="caption">Content-aware loading placeholders that match layout.</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(74,222,128,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <div style="width:16px;height:16px;border-radius:4px;background:#4ADE80;"></div>
+            </div>
+            <div><h4>Haptic-style feedback</h4><p class="caption">Micro-bounce confirming destructive or form actions.</p></div>
+          </div>
+        </div>
+        <a href="services.html" class="btn btn-primary" style="margin-top:2.5rem;">Explore Capabilities</a>
+      </div>
+      <div style="position:relative;">
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.1);">
+          <img src="assets/images/img3_micro_interact.png" alt="Micro-interactions showcase">
+        </div>
+        <!-- floating pill badge -->
+        <div style="position:absolute;bottom:-1.5rem;left:-1.5rem;background:var(--white);border-radius:16px;padding:1rem 1.5rem;box-shadow:0 10px 30px rgba(0,0,0,0.08);display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--highlight);display:flex;align-items:center;justify-content:center;">✦</div>
+          <div><div style="font-weight:500;font-size:0.875rem;">+42% Retention</div><div class="caption">After motion design</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3 — App Transition Gallery ===== -->
+<section class="section atg-section" style="background:var(--bg-main);overflow:hidden;position:relative;">
+  <!-- Background glow blobs -->
+  <div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,46,147,0.12) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none;"></div>
+  <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,46,147,0.08) 0%,transparent 70%);bottom:-80px;left:5%;pointer-events:none;"></div>
+
+  <div class="container" style="position:relative;z-index:2;">
+
+    <!-- Header -->
+    <div class="reveal mobile-center-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:5rem;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <span class="label" style="color:var(--accent);letter-spacing:0.12em;">Transitions</span>
+        <h2 style="margin-top:0.5rem;font-size:clamp(2rem,4vw,3rem);">App Transition Gallery</h2>
+        <p style="max-width:440px;margin-top:0.75rem;font-size:0.9375rem;">Seamless screen journeys that preserve context and guide spatial awareness.</p>
+      </div>
+      <a href="portfolio.html" class="btn" style="background:rgba(255,46,147,0.15);color:#FF2E93;border:1px solid rgba(255,46,147,0.3);backdrop-filter:blur(8px);">Explore All →</a>
+    </div>
+
+    <!-- Transition rows -->
+    <div class="atg-list">
+
+      <!-- Row 1 -->
+      <div class="atg-row reveal" style="--atg-accent:#FF2E93;">
+        <div class="atg-num">01</div>
+        <div class="atg-body">
+          <h3 class="atg-title">Layout Morphing</h3>
+          <p class="atg-desc">Grid columns reshape and reflow without visual jumps — every element finds its new position through physics-based easing curves.</p>
+          <div class="atg-tags">
+            <span class="atg-tag">Spring Easing</span>
+            <span class="atg-tag">FLIP Technique</span>
+            <span class="atg-tag">Shared Geometry</span>
+          </div>
+        </div>
+        <div class="atg-visual">
+          <div class="atg-bar-group">
+            <div class="atg-bar" style="width:88%;animation-delay:0s;"></div>
+            <div class="atg-bar" style="width:65%;animation-delay:0.15s;"></div>
+            <div class="atg-bar" style="width:74%;animation-delay:0.3s;"></div>
+          </div>
+          <span class="atg-ease-label">cubic-bezier(0.34,1.56,0.64,1)</span>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="atg-row reveal reveal-delay-1" style="--atg-accent:#FF2E93;">
+        <div class="atg-num">02</div>
+        <div class="atg-body">
+          <h3 class="atg-title">Shared Element Continuity</h3>
+          <p class="atg-desc">Hero images, avatars and cards travel between routes — the user's eye never loses the narrative thread across screen changes.</p>
+          <div class="atg-tags">
+            <span class="atg-tag">Hero Transition</span>
+            <span class="atg-tag">Z-Index Orchestration</span>
+            <span class="atg-tag">Motion Matching</span>
+          </div>
+        </div>
+        <div class="atg-visual">
+          <div class="atg-bar-group">
+            <div class="atg-bar" style="width:92%;animation-delay:0.1s;"></div>
+            <div class="atg-bar" style="width:55%;animation-delay:0.25s;"></div>
+            <div class="atg-bar" style="width:80%;animation-delay:0.4s;"></div>
+          </div>
+          <span class="atg-ease-label">cubic-bezier(0.16,1,0.3,1)</span>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="atg-row reveal reveal-delay-2" style="--atg-accent:#FF2E93;">
+        <div class="atg-num">03</div>
+        <div class="atg-body">
+          <h3 class="atg-title">Liquid Page Exit</h3>
+          <p class="atg-desc">Organic SVG clip-path masks dissolve outgoing screens in a fluid wipe — preserving the brand's personality at every navigation moment.</p>
+          <div class="atg-tags">
+            <span class="atg-tag">Clip-Path Mask</span>
+            <span class="atg-tag">SVG Morph</span>
+            <span class="atg-tag">Lottie Export</span>
+          </div>
+        </div>
+        <div class="atg-visual">
+          <div class="atg-bar-group">
+            <div class="atg-bar" style="width:70%;animation-delay:0s;"></div>
+            <div class="atg-bar" style="width:95%;animation-delay:0.2s;"></div>
+            <div class="atg-bar" style="width:60%;animation-delay:0.35s;"></div>
+          </div>
+          <span class="atg-ease-label">cubic-bezier(0.4,0,0.2,1)</span>
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="atg-row reveal reveal-delay-3" style="--atg-accent:#4ADE80;">
+        <div class="atg-num">04</div>
+        <div class="atg-body">
+          <h3 class="atg-title">Depth Scaling</h3>
+          <p class="atg-desc">Perspective-driven Z-axis push and pull creates spatial hierarchy for drawers, modals and overlay stacks that feel truly three-dimensional.</p>
+          <div class="atg-tags">
+            <span class="atg-tag">Perspective CSS</span>
+            <span class="atg-tag">3D Transform</span>
+            <span class="atg-tag">Layer Compositing</span>
+          </div>
+        </div>
+        <div class="atg-visual">
+          <div class="atg-bar-group">
+            <div class="atg-bar" style="width:82%;animation-delay:0.05s;"></div>
+            <div class="atg-bar" style="width:68%;animation-delay:0.2s;"></div>
+            <div class="atg-bar" style="width:90%;animation-delay:0.38s;"></div>
+          </div>
+          <span class="atg-ease-label">cubic-bezier(0.34,1.2,0.64,1)</span>
+        </div>
+      </div>
+
+    </div><!-- /atg-list -->
+  </div>
+</section>
+
+<style>
+/* ── App Transition Gallery ── */
+.atg-list { display:flex; flex-direction:column; gap:0; }
+
+.atg-row {
+  display:grid;
+  grid-template-columns: 5rem 1fr 280px;
+  gap:2.5rem;
+  align-items:center;
+  padding:2.5rem 0;
+  border-bottom:1px solid var(--border-color);
+  transition:background 0.3s;
+  cursor:default;
+  position:relative;
+}
+.atg-row:first-child { border-top:1px solid var(--border-color); }
+.atg-row::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, rgba(var(--atg-accent-rgb,255,46,147),0.04) 0%, transparent 60%);
+  opacity:0;
+  transition:opacity 0.35s;
+  pointer-events:none;
+}
+.atg-row:hover::before { opacity:1; }
+.atg-row:hover .atg-num { color:var(--atg-accent); text-shadow:0 0 20px color-mix(in srgb,var(--atg-accent) 40%,transparent); }
+
+.atg-num {
+  font-family:'Outfit',sans-serif;
+  font-size:3rem;
+  font-weight:580;
+  color:var(--border-color);
+  line-height:1;
+  transition:color 0.3s, text-shadow 0.3s;
+  user-select:none;
+}
+
+.atg-title {
+  font-family:'Outfit',sans-serif;
+  font-size:1.375rem;
+  font-weight:560;
+  margin-bottom:0.5rem;
+  transition:color 0.3s;
+}
+.atg-row:hover .atg-title { color:var(--accent); }
+
+.atg-desc {
+  font-size:0.9rem;
+  line-height:1.65;
+  margin-bottom:1rem;
+  max-width:480px;
+}
+
+.atg-tags { display:flex; flex-wrap:wrap; gap:0.5rem; }
+.atg-tag {
+  font-size:0.75rem;
+  font-weight:500;
+  letter-spacing:0.04em;
+  color:var(--atg-accent);
+  background:color-mix(in srgb,var(--atg-accent) 12%,transparent);
+  border:1px solid color-mix(in srgb,var(--atg-accent) 22%,transparent);
+  border-radius:100px;
+  padding:0.25rem 0.75rem;
+}
+
+.atg-visual {
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+  align-items:flex-end;
+}
+.atg-bar-group {
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+  width:100%;
+}
+.atg-bar {
+  height:4px;
+  border-radius:100px;
+  background:color-mix(in srgb,var(--atg-accent) 40%,var(--border-color));
+  position:relative;
+  overflow:hidden;
+}
+.atg-bar::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:var(--atg-accent);
+  border-radius:100px;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.atg-row:hover .atg-bar::after { transform:scaleX(1); }
+
+.atg-ease-label {
+  font-family:monospace;
+  font-size:0.65rem;
+  color:var(--muted);
+  letter-spacing:0.05em;
+  opacity:0;
+  transition:opacity 0.3s 0.2s;
+}
+.atg-row:hover .atg-ease-label { opacity:1; }
+
+@media(max-width:1024px) {
+  .atg-row { grid-template-columns:4rem 1fr; }
+  .atg-visual { display:none; }
+}
+@media(max-width:767px) {
+  .atg-row { grid-template-columns:3rem 1fr; gap:1.5rem; padding:2rem 0; }
+  .atg-num { font-size:2rem; }
+}
+
+
+</style>
+
+
+<!-- ===== SECTION 4 — Motion Design Workflow (editorial 2-col) ===== -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:start;gap:8rem;">
+      <div class="reveal mobile-center-header-simple">
+        <span class="label">Process</span>
+        <h2 style="margin-top:0.5rem;margin-bottom:3rem;">Motion Design Workflow</h2>
+        <div class="wf-line">
+          <div class="wf-step"><div class="wf-dot"></div><h4>01 — Discovery</h4><p style="margin-top:0.5rem;">Audit existing screens, identify interaction gaps, define motion principles to match your brand.</p></div>
+          <div class="wf-step"><div class="wf-dot"></div><h4>02 — Storyboard</h4><p style="margin-top:0.5rem;">Annotated wireframe-level timing sketches before any pixels move.</p></div>
+          <div class="wf-step"><div class="wf-dot"></div><h4>03 — High-Fi Animation</h4><p style="margin-top:0.5rem;">Figma / Protopie / After Effects high-fidelity motion with real easing curves.</p></div>
+          <div class="wf-step"><div class="wf-dot"></div><h4>04 — Developer Handoff</h4><p style="margin-top:0.5rem;">Framer Motion React code, Lottie JSON, or ProtoPie Cloud link — your team's preference.</p></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1" style="position:sticky;top:8rem;">
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.08);">
+          <img src="assets/images/img1.png" alt="Design workflow">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5 — Trusted By ===== -->
+<section class="section-sm section" style="background:var(--bg-light);padding-top:5rem;padding-bottom:5rem;">
+  <div class="container reveal" style="text-align:center;">
+    <span class="label" style="display:block;margin-bottom:1rem;">Trusted By</span>
+    <h3 style="margin-bottom:3rem;font-weight:540;color:var(--muted);font-size:1.125rem;">Product teams at fast-growing companies rely on this work</h3>
+    <div class="logo-strip">
+      <span>AcmeSaaS</span><span>Fintecho</span><span>HealthUI</span><span>DeepMetrics</span><span>LayerBase</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6 — Testimonials (offset card layout) ===== -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="label">Testimonials</span>
+      <h2 style="margin-top:0.5rem;">Client Testimonials</h2>
+    </div>
+    <div class="grid grid-3" style="align-items:stretch;">
+      <div class="card reveal" style="margin-top:0;">
+        <span class="quote-mark">"</span>
+        <p style="color:var(--primary);font-size:1rem;margin-bottom:2rem;">"The level of polish brought to our app transitions completely elevated our product's perceived value. A master of interface physics."</p>
+        <div style="margin-top:auto;display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF2E93,#FF2E93);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:600;font-size:0.875rem;color:#fff;box-shadow:0 4px 12px rgba(255,46,147,0.35);">SJ</div>
+          <div><div style="font-weight:500;">Sarah J.</div><div class="caption">VP of Product, AcmeSaaS</div></div>
+        </div>
+      </div>
+      <div class="card reveal reveal-delay-1" style="margin-top:0;">
+        <span class="quote-mark">"</span>
+        <p style="color:var(--primary);font-size:1rem;margin-bottom:2rem;">"Not just pretty animations — purposeful motion that solved real UX problems in our complex data dashboard."</p>
+        <div style="margin-top:auto;display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF2E93,#FF2E93);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:600;font-size:0.875rem;color:#fff;box-shadow:0 4px 12px rgba(255,46,147,0.35);">MT</div>
+          <div><div style="font-weight:500;">Marcus T.</div><div class="caption">Lead Designer, Fintecho</div></div>
+        </div>
+      </div>
+      <div class="card reveal reveal-delay-2" style="margin-top:0;">
+        <span class="quote-mark">"</span>
+        <p style="color:var(--primary);font-size:1rem;margin-bottom:2rem;">"Delivered a complete motion design system that our team could maintain and extend. Exceptional documentation."</p>
+        <div style="margin-top:auto;display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#4ADE80);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:600;font-size:0.875rem;color:#fff;box-shadow:0 4px 12px rgba(74,222,128,0.35);">PK</div>
+          <div><div style="font-weight:500;">Priya K.</div><div class="caption">CTO, HealthUI</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section-sm" style="padding:5rem 0;">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <div style="position:relative;z-index:2;">
+        <h2 style="color:#ffffff;margin-bottom:1.5rem;">Ready to make your product feel alive?</h2>
+        <p style="color:rgba(255,255,255,0.6);margin-bottom:2.5rem;max-width:560px;margin-inline:auto;">I partner with product teams who know that great UX is felt, not just seen — let's build something unforgettable.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-accent">Book Discovery Call</a>
+          <a href="portfolio.html" class="btn btn-outline-white">View Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="color:var(--brand);margin-bottom:1rem;"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--brand)" /></svg>Kinetix</div>
+        <p style="max-width:280px;font-size:0.9375rem;">I craft cinematic interface motion for SaaS products — micro-interactions, app transitions, and full motion systems.</p>
+        <div class="social-icons" >
+          <a href="#" class="social-icon" aria-label="Twitter" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.05c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Dribbble" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm8.56-12c0-1.08-.22-2.12-.6-3.09-2.06.66-4.52 1.02-7.16 1.02-1.22 0-2.43-.09-3.62-.26C9.17 12.87 9 16.29 9 20c.95.34 1.96.53 3 .53 4.72 0 8.56-3.83 8.56-8.53zm-10.74 8.2c0-3.64.18-6.93.5-9.98-2.67-.32-5.18-1.03-7.39-2.01A8.527 8.527 0 0 0 3.44 12c0 4.29 3.14 7.84 7.21 8.42l-.12-.01-.01-.01.03-.01..."/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Behance" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10.636c0-4.71-3.078-6.364-6.226-6.364-4.526 0-6.5 3.328-6.5 6.468 0 3.636 2.378 6.26 6.364 6.26 3.196 0 5.48-1.542 5.922-4h-2.756c-.476 1.054-1.606 1.482-2.966 1.482-1.986 0-2.884-1.12-2.986-3.262h8.924c.14-1.042.224-2.584.224-2.584zm-5.726-2.502c1.232 0 1.956.84 2.126 1.832h-4.364c.252-1.148 1.15-1.832 2.238-1.832zm-12.87-9.134h-5.13v17h5.71c4.152 0 6.264-1.638 6.264-4.526 0-2.486-1.516-3.414-2.75-3.804 1.106-.44 2.19-1.56 2.19-3.344 0-2.614-1.89-3.326-4.284-3.326zm.264 11.5h-2.5v-4.5h2.5c1.848 0 2.84.72 2.84 2.25 0 1.572-1 2.25-2.84 2.25zm-.25-7.5h-2.25v-4h2.25c1.554 0 2.47.536 2.47 2 0 1.482-.916 2-2.47 2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5 style="color:#ffffff;margin-bottom:1.25rem;">Pages</h5>
+        <div class="footer-links">
+          <a href="about.html">About</a><a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a><a href="case-studies.html">Case Studies</a>
+          <a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="color:#ffffff;margin-bottom:1.25rem;">Connect</h5>
+        <div class="footer-links">
+          <a href="#">Dribbble</a><a href="#">Twitter / X</a>
+          <a href="#">LinkedIn</a><a href="#">Behance</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p style="margin:0;font-size:0.875rem;">&copy; 2026 Kinetix. All rights reserved.</p>
+      
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+
+
+
+<!-- FOOLPROOF BACK TO TOP -->
+<style>
+.b2t-fixed {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--brand, #FF2E93);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 890;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 46, 147, 0.3);
+}
+.b2t-fixed.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.b2t-fixed:hover {
+  background: #E62280;
+  box-shadow: 0 8px 24px rgba(255, 46, 147, 0.5);
+  transform: translateY(-4px);
+}
+</style>
+<button class="b2t-fixed" id="b2t-btn" aria-label="Back to Top">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script>
+  (function() {
+    var btn = document.getElementById('b2t-btn');
+    if (btn) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          btn.classList.add('show');
+        } else {
+          btn.classList.remove('show');
+        }
+      });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

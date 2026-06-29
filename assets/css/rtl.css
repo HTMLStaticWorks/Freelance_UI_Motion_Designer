@@ -1,0 +1,34 @@
+/* ===== RTL SUPPORT ===== */
+[dir="rtl"] body { text-align: right; }
+
+[dir="rtl"] .navbar {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+[dir="rtl"] .nav-actions { flex-direction: row-reverse; }
+
+[dir="rtl"] .offcanvas {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+[dir="rtl"] .offcanvas.active { transform: translateX(0); }
+
+[dir="rtl"] .grid-2,
+[dir="rtl"] .grid-3,
+[dir="rtl"] .grid-4 { direction: rtl; }
+
+[dir="rtl"] .timeline { border-left: none; border-right: 2px solid var(--bg-light); padding-left: 0; padding-right: 2.5rem; margin-left: 0; margin-right: 0.75rem; }
+[dir="rtl"] .timeline-item::before { left: auto; right: calc(-2.5rem - 1px); }
+
+[dir="rtl"] .step-flow { flex-direction: row-reverse; }
+[dir="rtl"] .step-flow::before { left: auto; right: 10%; }
+
+[dir="rtl"] .footer-grid { direction: rtl; }
+[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+
+[dir="rtl"] .logo { flex-direction: row-reverse; }
+[dir="rtl"] .btn { flex-direction: row-reverse; }
+
+[dir="rtl"] .cards-row,
+[dir="rtl"] .cards-row-3 { flex-direction: row-reverse; }
