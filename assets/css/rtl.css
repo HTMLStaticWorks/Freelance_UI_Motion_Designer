@@ -1,12 +1,6 @@
 /* ===== RTL SUPPORT ===== */
 [dir="rtl"] body { text-align: right; }
 
-[dir="rtl"] .navbar {
-  /* Removed row-reverse to allow native RTL flexbox */
-}
-[dir="rtl"] .nav-links { /* removed */ }
-[dir="rtl"] .nav-actions { /* removed */ }
-
 [dir="rtl"] .offcanvas {
   right: auto;
   left: 0;
@@ -20,6 +14,9 @@
 
 [dir="rtl"] .timeline { border-left: none; border-right: 2px solid var(--bg-light); padding-left: 0; padding-right: 2.5rem; margin-left: 0; margin-right: 0.75rem; }
 [dir="rtl"] .timeline-item::before { left: auto; right: calc(-2.5rem - 1px); }
+
+[dir="rtl"] .wf-line { border-left: none; border-right: 2px solid rgba(255,46,147,0.25); padding-left: 0; padding-right: 2.5rem; margin-left: 0; margin-right: 0.75rem; }
+[dir="rtl"] .wf-dot { left: auto; right: calc(-2.5rem - 1px); }
 
 [dir="rtl"] .step-flow { flex-direction: row-reverse; }
 [dir="rtl"] .step-flow::before { left: auto; right: 10%; }

@@ -9,10 +9,32 @@
   <link rel="stylesheet" href="assets/css/rtl.css">
   <style>
     /* Before / After layout */
-    .ba-wrapper { position:relative;border-radius:20px;overflow:hidden;user-select:none;line-height:0; }
-    .ba-before { width:100%;display:block; }
-    .ba-after-wrap { position:absolute;top:0;left:0;bottom:0;overflow:hidden; }
-    .ba-after-wrap img { min-width: 100vw; max-width:none; display:block; }
+    .ba-wrapper { 
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      user-select: none;
+      line-height: 0; 
+      height: clamp(300px, 50vw, 480px);
+      container-type: inline-size;
+      direction: ltr;
+    }
+    .ba-before { 
+      width: 100%; 
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block; 
+    }
+    .ba-after-wrap { position: absolute; top: 0; left: 0; bottom: 0; overflow: hidden; }
+    .ba-after-wrap img { 
+      width: 100cqw; 
+      max-width: none; 
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block; 
+    }
     .ba-handle {
       position:absolute;top:0;bottom:0;width:4px;background:var(--white);cursor:ew-resize;z-index:10;left:50%;
     }
@@ -481,7 +503,7 @@
         </div>
         <div class="ba-handle" style="left:50%;"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;max-width:900px;margin:1rem auto 0;padding:0 1rem;">
+      <div style="display:flex;justify-content:space-between;max-width:900px;margin:1rem auto 0;padding:0 1rem;direction:ltr;">
         <span class="pill" style="background:rgba(0,0,0,0.06);color:var(--muted);">← Static UI</span>
         <span class="pill pill-accent">Motion Enhanced UI</span>
       </div>
@@ -697,7 +719,7 @@
           <a href="#" class="social-icon" aria-label="Twitter" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.05c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
           <a href="#" class="social-icon" aria-label="Dribbble" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm8.56-12c0-1.08-.22-2.12-.6-3.09-2.06.66-4.52 1.02-7.16 1.02-1.22 0-2.43-.09-3.62-.26C9.17 12.87 9 16.29 9 20c.95.34 1.96.53 3 .53 4.72 0 8.56-3.83 8.56-8.53zm-10.74 8.2c0-3.64.18-6.93.5-9.98-2.67-.32-5.18-1.03-7.39-2.01A8.527 8.527 0 0 0 3.44 12c0 4.29 3.14 7.84 7.21 8.42l-.12-.01-.01-.01.03-.01..."/></svg></a>
           <a href="#" class="social-icon" aria-label="LinkedIn" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-          <a href="#" class="social-icon" aria-label="Behance" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10.636c0-4.71-3.078-6.364-6.226-6.364-4.526 0-6.5 3.328-6.5 6.468 0 3.636 2.378 6.26 6.364 6.26 3.196 0 5.48-1.542 5.922-4h-2.756c-.476 1.054-1.606 1.482-2.966 1.482-1.986 0-2.884-1.12-2.986-3.262h8.924c.14-1.042.224-2.584.224-2.584zm-5.726-2.502c1.232 0 1.956.84 2.126 1.832h-4.364c.252-1.148 1.15-1.832 2.238-1.832zm-12.87-9.134h-5.13v17h5.71c4.152 0 6.264-1.638 6.264-4.526 0-2.486-1.516-3.414-2.75-3.804 1.106-.44 2.19-1.56 2.19-3.344 0-2.614-1.89-3.326-4.284-3.326zm.264 11.5h-2.5v-4.5h2.5c1.848 0 2.84.72 2.84 2.25 0 1.572-1 2.25-2.84 2.25zm-.25-7.5h-2.25v-4h2.25c1.554 0 2.47.536 2.47 2 0 1.482-.916 2-2.47 2z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Behance" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14h-8.027c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988h-6.466v-15.154h5.343c3.318 0 4.713 1.58 4.713 3.9 0 1.956-1.144 3.353-2.736 3.665 1.62.304 3.033 1.65 3.033 4 0 2.42-1.725 3.589-3.887 3.589zm-3.411-2.446h1.22c1.733 0 2.115-.995 2.115-2 0-1.109-.438-1.76-2.05-1.76h-1.285v3.76zm0-5.759h1.157c1.341 0 1.841-.832 1.841-1.688 0-1.026-.502-1.677-1.79-1.677h-1.208v3.365z"/></svg></a>
         </div>
       </div>
       <div>
