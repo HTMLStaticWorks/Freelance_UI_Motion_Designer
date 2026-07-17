@@ -243,7 +243,7 @@
 
 /* ── Pill badges on light bg ─────────────────────────────── */
 [data-theme="dark"] .pill-highlight { color: #FF2E93; }
-[data-theme="dark"] .pill-green { color: #4ADE80; }
+[data-theme="dark"] .pill-accent { color: #FF2E93; }
 
 /* ── Step border on pricing ──────────────────────────────── */
 [data-theme="dark"] .step-num {
