@@ -316,8 +316,8 @@
 <section class="section" style="background:var(--bg-light);">
   <div class="container">
     <div class="reveal" style="text-align:center;margin-bottom:4rem;">
-      <span class="label">Gallery</span>
-      <h2 style="margin-top:0.5rem;">Interaction Gallery</h2>
+      <span class="label" style="color:var(--accent);">Gallery</span>
+      <h2 style="margin-top:0.5rem;color:var(--primary);">Interaction Gallery</h2>
       <p>Hover and interact with each tile to experience pure CSS micro-interactions.</p>
     </div>
     <div class="interaction-grid reveal" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:1.5rem;max-width:1000px;margin:0 auto;">
@@ -332,9 +332,9 @@
 
       <!-- Interaction 2: Morphing Button -->
       <div class="glass" style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;border-radius:24px;background:var(--bg-dark);">
-        <div class="morph-btn" style="position:relative;width:60px;height:60px;background:var(--white);border-radius:30px;cursor:pointer;transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
-          <svg class="icon-search" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--bg-dark)" stroke-width="2" style="transition:transform 0.4s;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          <span class="search-text" style="position:absolute;left:50px;opacity:0;color:var(--bg-dark);font-weight:600;white-space:nowrap;transition:opacity 0.3s;pointer-events:none;">Search projects...</span>
+        <div class="morph-btn" style="position:relative;width:60px;height:60px;background:#ffffff;border-radius:30px;cursor:pointer;transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+          <svg class="icon-search" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" style="transition:transform 0.4s;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <span class="search-text" style="position:absolute;left:50px;opacity:0;color:#111827;font-weight:600;white-space:nowrap;transition:opacity 0.3s;pointer-events:none;">Search projects...</span>
         </div>
         <style>
           .morph-btn:hover { width: 180px; justify-content: flex-start; padding-left: 20px; }
@@ -389,7 +389,7 @@
 
       <!-- Interaction 3: Liquid Toggle -->
       <div class="glass" style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;border-radius:24px;background:var(--bg-dark);">
-        <label style="position:relative;width:80px;height:40px;background:rgba(255,255,255,0.1);border-radius:20px;cursor:pointer;box-shadow:inset 0 2px 6px rgba(0,0,0,0.2);">
+        <label style="position:relative;width:80px;height:40px;background:rgba(255,255,255,0.25);border-radius:20px;cursor:pointer;box-shadow:inset 0 2px 6px rgba(0,0,0,0.2);">
           <input type="checkbox" style="opacity:0;width:0;height:0;position:absolute;" class="toggle-input">
           <span class="toggle-slider" style="position:absolute;top:4px;left:4px;width:32px;height:32px;background:var(--accent);border-radius:50%;transition:all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);box-shadow:0 4px 12px rgba(255,46,147,0.4);"></span>
         </label>
@@ -446,16 +446,16 @@
 
       <!-- Interaction 4: Shimmer Skeleton -->
       <div class="glass" style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;border-radius:24px;background:var(--bg-dark);">
-        <div style="width:65%;display:flex;flex-direction:column;gap:0.75rem;">
-          <div class="shimmer" style="width:100%;height:80px;border-radius:12px;background:rgba(255,255,255,0.05);position:relative;overflow:hidden;"></div>
-          <div class="shimmer" style="width:80%;height:12px;border-radius:6px;background:rgba(255,255,255,0.05);position:relative;overflow:hidden;"></div>
-          <div class="shimmer" style="width:50%;height:12px;border-radius:6px;background:rgba(255,255,255,0.05);position:relative;overflow:hidden;"></div>
+        <div style="width:65%;display:flex;flex-direction:column;gap:0.75rem;transform:translateY(-1rem);">
+          <div class="shimmer" style="width:100%;height:80px;border-radius:12px;background:rgba(255,255,255,0.15);position:relative;overflow:hidden;"></div>
+          <div class="shimmer" style="width:80%;height:12px;border-radius:6px;background:rgba(255,255,255,0.15);position:relative;overflow:hidden;"></div>
+          <div class="shimmer" style="width:50%;height:12px;border-radius:6px;background:rgba(255,255,255,0.15);position:relative;overflow:hidden;"></div>
         </div>
         <style>
           .shimmer::after {
             content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
             transform: translateX(-100%);
-            background-image: linear-gradient(90deg, rgba(255,255,255,0) 0, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0) 100%);
+            background-image: linear-gradient(90deg, rgba(255,255,255,0) 0, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0) 100%);
             animation: shimmer 1.5s infinite ease-in-out;
           }
           @keyframes shimmer { 100% { transform: translateX(100%); } }
@@ -557,9 +557,9 @@
         <p style="max-width:280px;font-size:0.9375rem;">I craft cinematic interface motion for SaaS products — micro-interactions, app transitions, and full motion systems.</p>
         <div class="social-icons" >
           <a href="#" class="social-icon" aria-label="X (Twitter)" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          <a href="#" class="social-icon" aria-label="Dribbble" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm8.56-12c0-1.08-.22-2.12-.6-3.09-2.06.66-4.52 1.02-7.16 1.02-1.22 0-2.43-.09-3.62-.26C9.17 12.87 9 16.29 9 20c.95.34 1.96.53 3 .53 4.72 0 8.56-3.83 8.56-8.53zm-10.74 8.2c0-3.64.18-6.93.5-9.98-2.67-.32-5.18-1.03-7.39-2.01A8.527 8.527 0 0 0 3.44 12c0 4.29 3.14 7.84 7.21 8.42l-.12-.01-.01-.01.03-.01..."/></svg></a>
+          <a href="#" class="social-icon" aria-label="Instagram" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Facebook" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg></a>
           <a href="#" class="social-icon" aria-label="LinkedIn" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-          <a href="#" class="social-icon" aria-label="Behance" ><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14h-8.027c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988h-6.466v-15.154h5.343c3.318 0 4.713 1.58 4.713 3.9 0 1.956-1.144 3.353-2.736 3.665 1.62.304 3.033 1.65 3.033 4 0 2.42-1.725 3.589-3.887 3.589zm-3.411-2.446h1.22c1.733 0 2.115-.995 2.115-2 0-1.109-.438-1.76-2.05-1.76h-1.285v3.76zm0-5.759h1.157c1.341 0 1.841-.832 1.841-1.688 0-1.026-.502-1.677-1.79-1.677h-1.208v3.365z"/></svg></a>
         </div>
       </div>
       <div>
@@ -573,8 +573,8 @@
       <div>
         <h5 style="color:#ffffff;margin-bottom:1.25rem;">Connect</h5>
         <div class="footer-links">
-          <a href="#">Dribbble</a><a href="#">Twitter / X</a>
-          <a href="#">LinkedIn</a><a href="#">Behance</a>
+          <a href="#">Twitter / X</a><a href="#">Instagram</a>
+          <a href="#">Facebook</a><a href="#">LinkedIn</a>
         </div>
       </div>
     </div>
